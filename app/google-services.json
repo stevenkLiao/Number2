@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "579284221488",
+    "firebase_url": "https://nummachine2.firebaseio.com",
+    "project_id": "nummachine2",
+    "storage_bucket": "nummachine2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579284221488:android:aaf73b4a8aaf39ba",
+        "android_client_info": {
+          "package_name": "com.example.user.nummachine2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579284221488-7johkmup28pc0ib5699lq3nh1gpu734k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.user.nummachine2",
+            "certificate_hash": "96f1ef8339f5d84735a3593bc497d6357a8e92c2"
+          }
+        },
+        {
+          "client_id": "579284221488-n8tekt0ok1d9325uhnn6efortkre544p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWamducXHxoQ16oQG7IBLy1ksZ3RuWxzU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579284221488-n8tekt0ok1d9325uhnn6efortkre544p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

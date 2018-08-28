@@ -1,0 +1,95 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.user.nummachine2.CallFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorYellow"
+        android:orientation="vertical">
+
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/callback"
+            tools:context="com.example.user.nummachine2.ChooseActivity">
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="自訂叫號"
+                android:textColor="#000000"
+                android:textSize="35sp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:id="@+id/editText6"
+                android:layout_width="170px"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                android:layout_marginStart="35dp"
+                android:background="@drawable/num"
+                android:ems="2"
+                android:hint="000"
+                android:inputType="number"
+                android:maxLength="3"
+                android:textSize="60sp"
+                android:layout_alignTop="@+id/button4"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="170px"
+                android:layout_height="120px"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="43dp"
+                android:layout_marginLeft="29dp"
+                android:layout_marginStart="29dp"
+                android:layout_toEndOf="@+id/editText6"
+                android:layout_toRightOf="@+id/editText6"
+                android:background="@drawable/callbtn"
+                android:text="確認"
+                android:textSize="30sp" />
+
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/callback"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:gravity="center"
+                android:text="000"
+                android:textColor="#000000"
+                android:textSize="80sp" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:text="前來取餐"
+                android:background="@drawable/callbtn"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

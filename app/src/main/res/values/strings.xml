@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">NumMachine2</string>
+    <string name="appTitle">叫號APP登入</string>
+    <string name="logBtn">登入</string>
+    <string name="RigBtn">註冊</string>
+    <string name="ModBtn">完成</string>
+    <string name="Rbtn">註冊</string>
+    <string name="RigInfo">註冊資料</string>
+    <string name="RigStoreName">店名</string>
+    <string name="chooseWay">請選擇身分</string>
+    <string name="YoureStore">店家</string>
+    <string name="YoureConsu">消費者</string>
+    <string name="DialogTitle">提示訊息</string>
+
+    <!--Dialog 提示訊息-->
+    <string name="WrongPW">錯誤的帳號密碼！</string>
+    <string name="RegisterSucceed">註冊成功！</string>
+    <string name="RegisterFailed">註冊失敗！</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

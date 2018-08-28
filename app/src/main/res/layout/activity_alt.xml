@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorYellow"
+    tools:context="com.example.user.nummachine2.AltActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/RigInfo"
+        android:textSize="60px"
+        android:textColor="#000000"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="300px"
+        android:layout_height="350px"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/titlechoose"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="450px"
+        android:layout_height="80px"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/imageView16"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/textbox" />
+
+    <EditText
+        android:id="@+id/editText8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView17"
+        android:layout_alignLeft="@+id/imageView17"
+        android:layout_marginBottom="27px"
+        android:layout_marginLeft="20px"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:hint="店名"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50px"
+        android:layout_below="@+id/imageView17"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/title"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:text="完成" />
+</com.zhy.autolayout.AutoRelativeLayout>
