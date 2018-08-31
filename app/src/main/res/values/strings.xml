@@ -13,6 +13,7 @@
     <string name="DialogTitle">提示訊息</string>
 
     <!--Dialog 提示訊息-->
+    <string name="WrongStoreName">未搜尋到店名</string>
     <string name="WrongPW">錯誤的帳號密碼！</string>
     <string name="RegisterSucceed">註冊成功！</string>
     <string name="RegisterFailed">註冊失敗！</string>

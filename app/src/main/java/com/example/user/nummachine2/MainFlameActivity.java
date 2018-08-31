@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.user.Utils.DialogUtil;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by Mitake on 2018/3/7.
  */
@@ -30,6 +32,9 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_flame);
+        tvStoreName = (TextView) findViewById(R.id.textView14);
+
+
         Intent intent = getIntent();
         strEmail = intent.getStringExtra("email");
 
@@ -40,21 +45,18 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void OnCompleted(String httpResult) {
                 Log.d("result", httpResult);
+                String[] result = httpResult.split("/");
+                if(result[0].equals("200")) {
+                    tvStoreName.setText(result[1]);
+                } else {
+                    DialogUtil.showPostiveDialog(MainFlameActivity.this, getResources().getString(R.string.WrongPW), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
 
-//                if(URLtool.getHttpResult(httpResult).equals("LoginSuccess")) {
-//                    Intent intent2 = new Intent(LogActivity.this, MainFlameActivity.class);
-//                    intent2.putExtra("email", strEmail);
-//
-//                    startActivity(intent2);
-//                    LogActivity.this.finish();
-//                } else {
-//                    DialogUtil.showPostiveDialog(LogActivity.this, getResources().getString(R.string.WrongPW), new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            dialog.dismiss();
-//                        }
-//                    });
-//                }
             }
         });
 
