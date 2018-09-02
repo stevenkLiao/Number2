@@ -131,9 +131,19 @@ public class URLtool extends AsyncTask<Void, Void, String> {
                "?" + "email=" + queryName;
     }
 
+    static public String getUrlWaitNumber(String storeName) {
+        return CommonData.SERVER_IP + "/" + CommonData.QUERY_WAIT_NUM_API +
+                "?" + "store_name=" + storeName;
+    }
+
     static public String getHttpResult(String httpResultOri) {
         String[] split_line = httpResultOri.split("/");
         return split_line[1];
+    }
+
+    static public String[] getWaitNum(String httpResultOri) {
+        String[] split = httpResultOri.split(" +", 0);
+        return split;
     }
 
 }

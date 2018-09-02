@@ -26,7 +26,7 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
     //宣告view元件
     private LinearLayout ll_board, ll_call;
     private TextView tvStoreName;
-    private String strEmail;
+    private String strEmail, storeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +48,7 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
                 String[] result = httpResult.split("/");
                 if(result[0].equals("200")) {
                     tvStoreName.setText(result[1]);
+                    storeName = result[1];
                 } else {
                     DialogUtil.showPostiveDialog(MainFlameActivity.this, getResources().getString(R.string.WrongPW), new DialogInterface.OnClickListener() {
                         @Override
@@ -84,7 +85,9 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.ll_call:
-                startActivity(new Intent(MainFlameActivity.this, CallActivity.class));
+                Intent intent = new Intent(this, CallActivity.class);
+                intent.putExtra("storeName", storeName);
+                startActivity(intent);
                 break;
         }
     }

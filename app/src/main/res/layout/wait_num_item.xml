@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/colorYellow"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        android:layout_weight="1"
+        android:background="@drawable/waitnum"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="00"
+        android:textColor="#ffffff"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        android:layout_weight="1"
+        android:background="@drawable/waitnum"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="00"
+        android:textColor="#ffffff"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        android:layout_weight="1"
+        android:background="@drawable/waitnum"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="00"
+        android:textColor="#ffffff"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        android:layout_weight="1"
+        android:background="@drawable/waitnum"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="00"
+        android:textColor="#ffffff"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="7dp"
+        android:layout_weight="1"
+        android:background="@drawable/waitnum"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="00"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:visibility="visible" />
+
+</LinearLayout>
