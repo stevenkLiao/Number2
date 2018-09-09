@@ -21,6 +21,7 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
     private Context mContext;
     private LayoutInflater mInflater;
     private List<WaitNumberArray> WaitNumberArrayList;
+    private String[] waitNumber;
 
     public WaitNumAdapter(Context context, List<WaitNumberArray> WaitNumberArrayList) {
         this.mContext = context;
@@ -37,8 +38,17 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(WaitNumAdapter.ViewHolder holder, int position) {
-        WaitNumberArrayList.get(position).getWaitNumber();
+        waitNumber = WaitNumberArrayList.get(position).getWaitNumber();
+
+        //設定等待號碼欄位
+        setWaitNumber(holder.wait_num_tv1, waitNumber[1]);
+        setWaitNumber(holder.wait_num_tv2, waitNumber[2]);
+        setWaitNumber(holder.wait_num_tv3, waitNumber[3]);
+        setWaitNumber(holder.wait_num_tv4, waitNumber[4]);
+        setWaitNumber(holder.wait_num_tv5, waitNumber[5]);
+
         
+
     }
 
     @Override
@@ -100,7 +110,13 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
         public void setWaitNumber(String[] waitNumber) {
             this.waitNumber = waitNumber;
         }
+    }
 
+    private void setWaitNumber(TextView waitNumber_tv, String waitNumber_str) {
+        if(waitNumber_str!=null){
+            waitNumber_tv.setVisibility(View.VISIBLE);
+            waitNumber_tv.setText(waitNumber_str);
+        }
     }
 
 }
