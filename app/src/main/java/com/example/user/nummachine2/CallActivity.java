@@ -12,12 +12,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.user.Utils.DialogUtil;
+import com.example.user.adapter.WaitNumAdapter;
+
+import java.util.List;
 
 public class CallActivity extends AppCompatActivity {
 
     Button conBtn, takeBtn;
     private CallFragment.OnFragmentInteractionListener mListener;
     private String storeName;
+    private List<WaitNumAdapter.WaitNumberArray> waitNumberArrayList;
 
     //Touch物件，控制按鈕變色
     TextView.OnTouchListener conBtntouch = new TextView.OnTouchListener(){
@@ -76,7 +80,10 @@ public class CallActivity extends AppCompatActivity {
 
                 if(httpStatus[0].equals("200")) {
                     String[] result = URLtool.getWaitNum(httpStatus[1]);
-                    Log.d("result", httpResult);
+                    //依序將等待號碼傳入Adapter，取得等待號碼處理次數
+                    int processRound = result.length / 5;
+                    int procerrTime = result.length / 5;
+
 
                 } else {
 
@@ -86,5 +93,29 @@ public class CallActivity extends AppCompatActivity {
         });
 
         urlTool.execute();
+    }
+
+    private void processWaitNumber(int processRound, int processNumber, String[] oriWaitNumber) {
+        int oriArrayCount = 0;
+        while (processRound != 0) {
+            for(int i=0; i<=5; i++) {
+                String[] tmpWaitNumber = new String[5];
+                tmpWaitNumber[0] = oriWaitNumber[i*oriArrayCount];
+                tmpWaitNumber[1] = oriWaitNumber[i*oriArrayCount];
+                tmpWaitNumber[2] = oriWaitNumber[i*oriArrayCount];
+                tmpWaitNumber[3] = oriWaitNumber[i*oriArrayCount];
+                tmpWaitNumber[4] = oriWaitNumber[i*oriArrayCount];
+
+            }
+            oriArrayCount++;
+            processRound--;
+
+            if(processNumber != 0) {
+                    
+            }
+        }
+
+
+
     }
 }

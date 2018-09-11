@@ -47,8 +47,6 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
         setWaitNumber(holder.wait_num_tv4, waitNumber[4]);
         setWaitNumber(holder.wait_num_tv5, waitNumber[5]);
 
-        
-
     }
 
     @Override
