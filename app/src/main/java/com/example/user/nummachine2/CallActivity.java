@@ -100,22 +100,35 @@ public class CallActivity extends AppCompatActivity {
         while (processRound != 0) {
             for(int i=0; i<=5; i++) {
                 String[] tmpWaitNumber = new String[5];
-                tmpWaitNumber[0] = oriWaitNumber[i*oriArrayCount];
-                tmpWaitNumber[1] = oriWaitNumber[i*oriArrayCount];
-                tmpWaitNumber[2] = oriWaitNumber[i*oriArrayCount];
-                tmpWaitNumber[3] = oriWaitNumber[i*oriArrayCount];
-                tmpWaitNumber[4] = oriWaitNumber[i*oriArrayCount];
+                tmpWaitNumber[0] = oriWaitNumber[oriArrayCount*5];
+                tmpWaitNumber[1] = oriWaitNumber[oriArrayCount*5 + 1];
+                tmpWaitNumber[2] = oriWaitNumber[oriArrayCount*5 + 2];
+                tmpWaitNumber[3] = oriWaitNumber[oriArrayCount*5 + 3];
+                tmpWaitNumber[4] = oriWaitNumber[oriArrayCount*5 + 4];
+
+                WaitNumAdapter.WaitNumberArray waitNumberArray = null;
+                waitNumberArray.setWaitNumber(tmpWaitNumber);
+                waitNumberArrayList.add(waitNumberArray);
 
             }
             oriArrayCount++;
             processRound--;
 
             if(processNumber != 0) {
-                    
+                String[] tmpWaitNumberTail = new String[5];
+                for(int i=0; i<=processNumber; i++) {
+                    if (oriWaitNumber[5*processRound + i] != null) {
+                        tmpWaitNumberTail[i] = oriWaitNumber[5*processRound + i];
+                    }
+
+                }
+
+                WaitNumAdapter.WaitNumberArray waitNumberArray = null;
+                waitNumberArray.setWaitNumber(tmpWaitNumberTail);
+                waitNumberArrayList.add(waitNumberArray);
             }
         }
-
-
+        
 
     }
 }
