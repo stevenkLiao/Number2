@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +19,8 @@ import java.util.List;
 
 public class CallActivity extends AppCompatActivity {
 
-    Button conBtn, takeBtn;
+    private Button conBtn, takeBtn;
+    private RecyclerView waitNumRcv;
     private CallFragment.OnFragmentInteractionListener mListener;
     private String storeName;
     private List<WaitNumAdapter.WaitNumberArray> waitNumberArrayList;
@@ -62,6 +64,8 @@ public class CallActivity extends AppCompatActivity {
 
         conBtn = (Button) findViewById(R.id.button4);
         takeBtn = (Button) findViewById(R.id.button6);
+        waitNumRcv = (RecyclerView) findViewById(R.id.waitNumRcv);
+
         //按鈕變色
         conBtn.setOnTouchListener(conBtntouch);
         takeBtn.setOnTouchListener(takeBtntouch);
@@ -84,6 +88,9 @@ public class CallActivity extends AppCompatActivity {
                     int processRound = result.length / 5;
                     int procerrTime = result.length / 5;
 
+                    processWaitNumber(processRound, procerrTime, result);
+                    WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList);
+                    waitNumRcv.setAdapter(waitNumAdapter);
 
                 } else {
 
@@ -128,7 +135,7 @@ public class CallActivity extends AppCompatActivity {
                 waitNumberArrayList.add(waitNumberArray);
             }
         }
-        
+
 
     }
 }
