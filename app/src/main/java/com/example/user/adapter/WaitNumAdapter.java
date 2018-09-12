@@ -11,6 +11,7 @@ import com.example.user.nummachine2.R;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
     private Context mContext;
     private LayoutInflater mInflater;
     private List<WaitNumberArray> WaitNumberArrayList;
-    private String[] waitNumber;
+    private List waitNumber;
 
     public WaitNumAdapter(Context context, List<WaitNumberArray> WaitNumberArrayList) {
         this.mContext = context;
@@ -99,13 +100,13 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
     }
 
     public static class WaitNumberArray {
-        private String[] waitNumber;
+        private List<String> waitNumber = new ArrayList<String>();
 
-        public String[] getWaitNumber() {
+        public List<String> getWaitNumber() {
             return waitNumber;
         }
 
-        public void setWaitNumber(String[] waitNumber) {
+        public void setWaitNumber(List<String> waitNumber) {
             this.waitNumber = waitNumber;
         }
     }

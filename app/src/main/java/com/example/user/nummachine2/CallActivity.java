@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.user.Utils.DialogUtil;
 import com.example.user.adapter.WaitNumAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CallActivity extends AppCompatActivity {
@@ -70,6 +71,7 @@ public class CallActivity extends AppCompatActivity {
         conBtn.setOnTouchListener(conBtntouch);
         takeBtn.setOnTouchListener(takeBtntouch);
 
+        waitNumberArrayList = new ArrayList<>();
         storeName = getIntent().getStringExtra("storeName");
 
         //取得目前排隊號碼
@@ -84,11 +86,14 @@ public class CallActivity extends AppCompatActivity {
 
                 if(httpStatus[0].equals("200")) {
                     String[] result = URLtool.getWaitNum(httpStatus[1]);
-                    //依序將等待號碼傳入Adapter，取得等待號碼處理次數
-                    int processRound = result.length / 5;
-                    int procerrTime = result.length / 5;
+                    String[] resultRemoved = new String[200];
+                    System.arraycopy(result, 1, resultRemoved, 0, result.length-1);
 
-                    processWaitNumber(processRound, procerrTime, result);
+                    //依序將等待號碼傳入Adapter，取得等待號碼處理次數
+                    int processRound = resultRemoved.length / 5;
+                    int procerrTime = resultRemoved.length / 5;
+
+                    processWaitNumber(processRound, procerrTime, resultRemoved);
                     WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList);
                     waitNumRcv.setAdapter(waitNumAdapter);
 
@@ -113,7 +118,7 @@ public class CallActivity extends AppCompatActivity {
                 tmpWaitNumber[3] = oriWaitNumber[oriArrayCount*5 + 3];
                 tmpWaitNumber[4] = oriWaitNumber[oriArrayCount*5 + 4];
 
-                WaitNumAdapter.WaitNumberArray waitNumberArray = null;
+                WaitNumAdapter.WaitNumberArray waitNumberArray = new WaitNumAdapter.WaitNumberArray();
                 waitNumberArray.setWaitNumber(tmpWaitNumber);
                 waitNumberArrayList.add(waitNumberArray);
 
