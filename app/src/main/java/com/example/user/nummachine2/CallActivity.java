@@ -86,12 +86,17 @@ public class CallActivity extends AppCompatActivity {
 
                 if(httpStatus[0].equals("200")) {
                     String[] result = URLtool.getWaitNum(httpStatus[1]);
-                    String[] resultRemoved = new String[200];
+                    String[] resultRemoved = new String[result.length-1];
+
                     System.arraycopy(result, 1, resultRemoved, 0, result.length-1);
+
+                    for(int i=0; i<resultRemoved.length; i++) {
+
+                    }
 
                     //依序將等待號碼傳入Adapter，取得等待號碼處理次數
                     int processRound = resultRemoved.length / 5;
-                    int procerrTime = resultRemoved.length / 5;
+                    int procerrTime = resultRemoved.length % 5;
 
                     processWaitNumber(processRound, procerrTime, resultRemoved);
                     WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList);
@@ -109,36 +114,30 @@ public class CallActivity extends AppCompatActivity {
 
     private void processWaitNumber(int processRound, int processNumber, String[] oriWaitNumber) {
         int oriArrayCount = 0;
-        while (processRound != 0) {
-            for(int i=0; i<=5; i++) {
-                String[] tmpWaitNumber = new String[5];
-                tmpWaitNumber[0] = oriWaitNumber[oriArrayCount*5];
-                tmpWaitNumber[1] = oriWaitNumber[oriArrayCount*5 + 1];
-                tmpWaitNumber[2] = oriWaitNumber[oriArrayCount*5 + 2];
-                tmpWaitNumber[3] = oriWaitNumber[oriArrayCount*5 + 3];
-                tmpWaitNumber[4] = oriWaitNumber[oriArrayCount*5 + 4];
 
-                WaitNumAdapter.WaitNumberArray waitNumberArray = new WaitNumAdapter.WaitNumberArray();
-                waitNumberArray.setWaitNumber(tmpWaitNumber);
-                waitNumberArrayList.add(waitNumberArray);
+        for(int i=0; i<processRound; i++) {
+            List<String> tmpWaitNumber = new ArrayList<String>();
+            tmpWaitNumber.add(oriWaitNumber[i*5]);
+            tmpWaitNumber.add(oriWaitNumber[i*5 + 1]);
+            tmpWaitNumber.add(oriWaitNumber[i*5 + 2]);
+            tmpWaitNumber.add(oriWaitNumber[i*5 + 3]);
+            tmpWaitNumber.add(oriWaitNumber[i*5 + 4]);
 
+            WaitNumAdapter.WaitNumberArray waitNumberArray = new WaitNumAdapter.WaitNumberArray();
+            waitNumberArray.setWaitNumber(tmpWaitNumber);
+            waitNumberArrayList.add(waitNumberArray);
+
+        }
+
+        if(processNumber != 0) {
+            List<String> tmpWaitNumberTail = new ArrayList<String>();
+            for(int i=0; i<processNumber; i++) {
+                tmpWaitNumberTail.add(oriWaitNumber[5*processRound + i]);
             }
-            oriArrayCount++;
-            processRound--;
 
-            if(processNumber != 0) {
-                String[] tmpWaitNumberTail = new String[5];
-                for(int i=0; i<=processNumber; i++) {
-                    if (oriWaitNumber[5*processRound + i] != null) {
-                        tmpWaitNumberTail[i] = oriWaitNumber[5*processRound + i];
-                    }
-
-                }
-
-                WaitNumAdapter.WaitNumberArray waitNumberArray = null;
-                waitNumberArray.setWaitNumber(tmpWaitNumberTail);
-                waitNumberArrayList.add(waitNumberArray);
-            }
+            WaitNumAdapter.WaitNumberArray waitNumberArray = new WaitNumAdapter.WaitNumberArray();
+            waitNumberArray.setWaitNumber(tmpWaitNumberTail);
+            waitNumberArrayList.add(waitNumberArray);
         }
 
 
