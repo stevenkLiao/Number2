@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -73,6 +74,9 @@ public class CallActivity extends AppCompatActivity {
 
         waitNumberArrayList = new ArrayList<>();
         storeName = getIntent().getStringExtra("storeName");
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        waitNumRcv.setLayoutManager(layoutManager);
 
         //取得目前排隊號碼
         URLtool urlTool;

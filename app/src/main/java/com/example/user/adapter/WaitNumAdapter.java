@@ -45,11 +45,37 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
         waitNumberArray = waitNumber.toArray(new String[waitNumber.size()]);
 
         //設定等待號碼欄位
-        setWaitNumber(holder.wait_num_tv1, waitNumberArray[0]);
-        setWaitNumber(holder.wait_num_tv2, waitNumberArray[1]);
-        setWaitNumber(holder.wait_num_tv3, waitNumberArray[2]);
-        setWaitNumber(holder.wait_num_tv4, waitNumberArray[3]);
-        setWaitNumber(holder.wait_num_tv5, waitNumberArray[4]);
+        switch (waitNumberArray.length) {
+            case 1:
+                setWaitNumber(holder.wait_num_tv1, waitNumberArray[0]);
+                break;
+
+            case 2:
+                setWaitNumber(holder.wait_num_tv1, waitNumberArray[0]);
+                setWaitNumber(holder.wait_num_tv2, waitNumberArray[1]);
+                break;
+
+            case 3:
+                setWaitNumber(holder.wait_num_tv1, waitNumberArray[0]);
+                setWaitNumber(holder.wait_num_tv2, waitNumberArray[1]);
+                setWaitNumber(holder.wait_num_tv3, waitNumberArray[2]);
+                break;
+
+            case 4:
+                setWaitNumber(holder.wait_num_tv1, waitNumberArray[0]);
+                setWaitNumber(holder.wait_num_tv2, waitNumberArray[1]);
+                setWaitNumber(holder.wait_num_tv3, waitNumberArray[2]);
+                setWaitNumber(holder.wait_num_tv4, waitNumberArray[3]);
+                break;
+
+            case 5:
+                setWaitNumber(holder.wait_num_tv1, waitNumberArray[0]);
+                setWaitNumber(holder.wait_num_tv2, waitNumberArray[1]);
+                setWaitNumber(holder.wait_num_tv3, waitNumberArray[2]);
+                setWaitNumber(holder.wait_num_tv4, waitNumberArray[3]);
+                setWaitNumber(holder.wait_num_tv5, waitNumberArray[4]);
+                break;
+        }
 
     }
 
