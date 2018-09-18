@@ -48,17 +48,26 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
         switch (waitNumberArray.length) {
             case 1:
                 setWaitNumber(holder.wait_num_tv1, waitNumberArray[0]);
+                holder.wait_num_tv2.setVisibility(View.INVISIBLE);
+                holder.wait_num_tv3.setVisibility(View.INVISIBLE);
+                holder.wait_num_tv4.setVisibility(View.INVISIBLE);
+                holder.wait_num_tv5.setVisibility(View.INVISIBLE);
                 break;
 
             case 2:
                 setWaitNumber(holder.wait_num_tv1, waitNumberArray[0]);
                 setWaitNumber(holder.wait_num_tv2, waitNumberArray[1]);
+                holder.wait_num_tv3.setVisibility(View.INVISIBLE);
+                holder.wait_num_tv4.setVisibility(View.INVISIBLE);
+                holder.wait_num_tv5.setVisibility(View.INVISIBLE);
                 break;
 
             case 3:
                 setWaitNumber(holder.wait_num_tv1, waitNumberArray[0]);
                 setWaitNumber(holder.wait_num_tv2, waitNumberArray[1]);
                 setWaitNumber(holder.wait_num_tv3, waitNumberArray[2]);
+                holder.wait_num_tv4.setVisibility(View.INVISIBLE);
+                holder.wait_num_tv5.setVisibility(View.INVISIBLE);
                 break;
 
             case 4:
@@ -66,6 +75,7 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
                 setWaitNumber(holder.wait_num_tv2, waitNumberArray[1]);
                 setWaitNumber(holder.wait_num_tv3, waitNumberArray[2]);
                 setWaitNumber(holder.wait_num_tv4, waitNumberArray[3]);
+                holder.wait_num_tv5.setVisibility(View.INVISIBLE);
                 break;
 
             case 5:
@@ -142,8 +152,15 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
 
     private void setWaitNumber(TextView waitNumber_tv, String waitNumber_str) {
         if(waitNumber_str!=null){
+            int waitNum = Integer.valueOf(waitNumber_str);
             waitNumber_tv.setVisibility(View.VISIBLE);
-            waitNumber_tv.setText(waitNumber_str);
+
+            if(waitNum >= 10) {
+                waitNumber_tv.setText(waitNumber_str);
+            } else {
+                waitNumber_tv.setText("0" + waitNumber_str);
+            }
+
         }
     }
 
