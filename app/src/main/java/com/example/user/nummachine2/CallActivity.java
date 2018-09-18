@@ -78,10 +78,41 @@ public class CallActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         waitNumRcv.setLayoutManager(layoutManager);
 
-        //取得目前排隊號碼
+        reFresh();
+    }
+
+    private void processWaitNumber(int processRound, int processNumber, String[] oriWaitNumber) {
+        int oriArrayCount = 0;
+
+        for(int i=0; i<processRound; i++) {
+            List<String> tmpWaitNumber = new ArrayList<String>();
+            tmpWaitNumber.add(oriWaitNumber[i*5]);
+            tmpWaitNumber.add(oriWaitNumber[i*5 + 1]);
+            tmpWaitNumber.add(oriWaitNumber[i*5 + 2]);
+            tmpWaitNumber.add(oriWaitNumber[i*5 + 3]);
+            tmpWaitNumber.add(oriWaitNumber[i*5 + 4]);
+
+            WaitNumAdapter.WaitNumberArray waitNumberArray = new WaitNumAdapter.WaitNumberArray();
+            waitNumberArray.setWaitNumber(tmpWaitNumber);
+            waitNumberArrayList.add(waitNumberArray);
+
+        }
+
+        if(processNumber != 0) {
+            List<String> tmpWaitNumberTail = new ArrayList<String>();
+            for(int i=0; i<processNumber; i++) {
+                tmpWaitNumberTail.add(oriWaitNumber[5*processRound + i]);
+            }
+
+            WaitNumAdapter.WaitNumberArray waitNumberArray = new WaitNumAdapter.WaitNumberArray();
+            waitNumberArray.setWaitNumber(tmpWaitNumberTail);
+            waitNumberArrayList.add(waitNumberArray);
+        }
+    }
+
+    private void reFresh() {
         URLtool urlTool;
         urlTool = new URLtool(URLtool.getUrlWaitNumber(storeName), this);
-        Log.d("result", URLtool.getUrlWaitNumber(storeName));
         urlTool.setOnCompleted(new URLtool.OnCompletedListener() {
             @Override
             public void OnCompleted(String httpResult) {
@@ -114,36 +145,5 @@ public class CallActivity extends AppCompatActivity {
         });
 
         urlTool.execute();
-    }
-
-    private void processWaitNumber(int processRound, int processNumber, String[] oriWaitNumber) {
-        int oriArrayCount = 0;
-
-        for(int i=0; i<processRound; i++) {
-            List<String> tmpWaitNumber = new ArrayList<String>();
-            tmpWaitNumber.add(oriWaitNumber[i*5]);
-            tmpWaitNumber.add(oriWaitNumber[i*5 + 1]);
-            tmpWaitNumber.add(oriWaitNumber[i*5 + 2]);
-            tmpWaitNumber.add(oriWaitNumber[i*5 + 3]);
-            tmpWaitNumber.add(oriWaitNumber[i*5 + 4]);
-
-            WaitNumAdapter.WaitNumberArray waitNumberArray = new WaitNumAdapter.WaitNumberArray();
-            waitNumberArray.setWaitNumber(tmpWaitNumber);
-            waitNumberArrayList.add(waitNumberArray);
-
-        }
-
-        if(processNumber != 0) {
-            List<String> tmpWaitNumberTail = new ArrayList<String>();
-            for(int i=0; i<processNumber; i++) {
-                tmpWaitNumberTail.add(oriWaitNumber[5*processRound + i]);
-            }
-
-            WaitNumAdapter.WaitNumberArray waitNumberArray = new WaitNumAdapter.WaitNumberArray();
-            waitNumberArray.setWaitNumber(tmpWaitNumberTail);
-            waitNumberArrayList.add(waitNumberArray);
-        }
-
-
     }
 }

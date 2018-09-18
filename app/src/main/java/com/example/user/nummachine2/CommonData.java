@@ -10,7 +10,7 @@ public class CommonData {
 
     public static final String QUERY_STORE_NAME_API = "query_store_name.php";
 
-    public static final String CALL_NUM_API = "";
+    public static final String CALL_NUM_API = "callnum.php";
 
     public static final String QUERY_WAIT_NUM_API = "query_num_all.php";
 
