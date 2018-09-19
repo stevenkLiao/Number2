@@ -26,6 +26,7 @@ public class CallActivity extends AppCompatActivity {
     private CallFragment.OnFragmentInteractionListener mListener;
     private String storeName;
     private List<WaitNumAdapter.WaitNumberArray> waitNumberArrayList;
+    private WaitNumAdapter.WaitNumCallback waitNumCallback;
 
     //Touch物件，控制按鈕變色
     TextView.OnTouchListener conBtntouch = new TextView.OnTouchListener(){
@@ -111,7 +112,7 @@ public class CallActivity extends AppCompatActivity {
     }
 
     private void reFresh() {
-        URLtool urlTool;
+        final URLtool urlTool;
         urlTool = new URLtool(URLtool.getUrlWaitNumber(storeName), this);
         urlTool.setOnCompleted(new URLtool.OnCompletedListener() {
             @Override
@@ -134,7 +135,22 @@ public class CallActivity extends AppCompatActivity {
                     int procerrTime = resultRemoved.length % 5;
 
                     processWaitNumber(processRound, procerrTime, resultRemoved);
-                    WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList);
+                    WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
+                        @Override
+                        public void onCallBack(String result) {
+                            Log.d("result", result);
+                            URLtool urLtool = new URLtool(URLtool.getUrlCallNumber(storeName, result), CallActivity.this);
+                            urlTool.setOnCompleted(new URLtool.OnCompletedListener() {
+                                @Override
+                                public void OnCompleted(String httpResult) {
+                                    reFresh();
+                                }
+                            });
+
+                            urLtool.execute();
+
+                        }
+                    });
                     waitNumRcv.setAdapter(waitNumAdapter);
 
                 } else {

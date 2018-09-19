@@ -24,11 +24,17 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
     private List<WaitNumberArray> WaitNumberArrayList;
     private List<String> waitNumber;
     private String[] waitNumberArray;
+    private WaitNumAdapter.WaitNumCallback waitNumCallback;
 
-    public WaitNumAdapter(Context context, List<WaitNumberArray> WaitNumberArrayList) {
+    public interface WaitNumCallback{
+        void onCallBack(String result);
+    }
+
+    public WaitNumAdapter(Context context, List<WaitNumberArray> WaitNumberArrayList, WaitNumCallback waitNumCallback) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
         this.WaitNumberArrayList = WaitNumberArrayList;
+        this.waitNumCallback = waitNumCallback;
     }
 
     @Override
@@ -116,23 +122,33 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.textView21:
-
+                    if(wait_num_tv1.getVisibility() == View.VISIBLE) {
+                        waitNumCallback.onCallBack(wait_num_tv1.getText().toString());
+                    }
                     break;
 
                 case R.id.textView22:
-
+                    if(wait_num_tv2.getVisibility() == View.VISIBLE) {
+                        waitNumCallback.onCallBack(wait_num_tv2.getText().toString());
+                    }
                     break;
 
                 case R.id.textView23:
-
+                    if(wait_num_tv3.getVisibility() == View.VISIBLE) {
+                        waitNumCallback.onCallBack(wait_num_tv3.getText().toString());
+                    }
                     break;
 
                 case R.id.textView24:
-
+                    if(wait_num_tv4.getVisibility() == View.VISIBLE) {
+                        waitNumCallback.onCallBack(wait_num_tv4.getText().toString());
+                    }
                     break;
 
                 case R.id.textView25:
-
+                    if(wait_num_tv5.getVisibility() == View.VISIBLE) {
+                        waitNumCallback.onCallBack(wait_num_tv5.getText().toString());
+                    }
                     break;
             }
         }
@@ -152,14 +168,9 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
 
     private void setWaitNumber(TextView waitNumber_tv, String waitNumber_str) {
         if(waitNumber_str!=null){
-            int waitNum = Integer.valueOf(waitNumber_str);
-            waitNumber_tv.setVisibility(View.VISIBLE);
 
-            if(waitNum >= 10) {
-                waitNumber_tv.setText(waitNumber_str);
-            } else {
-                waitNumber_tv.setText("0" + waitNumber_str);
-            }
+            waitNumber_tv.setVisibility(View.VISIBLE);
+            waitNumber_tv.setText(waitNumber_str);
 
         }
     }
