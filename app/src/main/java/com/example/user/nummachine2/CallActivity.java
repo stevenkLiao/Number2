@@ -117,45 +117,46 @@ public class CallActivity extends AppCompatActivity {
         urlTool.setOnCompleted(new URLtool.OnCompletedListener() {
             @Override
             public void OnCompleted(String httpResult) {
-                Log.d("result", httpResult);
-                String[] httpStatus = httpResult.split("/");
+            Log.d("result", httpResult);
+            String[] httpStatus = httpResult.split("/");
 
-                if(httpStatus[0].equals("200")) {
-                    String[] result = URLtool.getWaitNum(httpStatus[1]);
-                    String[] resultRemoved = new String[result.length-1];
+            if(httpStatus[0].equals("200")) {
+                String[] result = URLtool.getWaitNum(httpStatus[1]);
+                String[] resultRemoved = new String[result.length-1];
 
-                    System.arraycopy(result, 1, resultRemoved, 0, result.length-1);
+                System.arraycopy(result, 1, resultRemoved, 0, result.length-1);
 
-                    for(int i=0; i<resultRemoved.length; i++) {
-
-                    }
-
-                    //依序將等待號碼傳入Adapter，取得等待號碼處理次數
-                    int processRound = resultRemoved.length / 5;
-                    int procerrTime = resultRemoved.length % 5;
-
-                    processWaitNumber(processRound, procerrTime, resultRemoved);
-                    WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
-                        @Override
-                        public void onCallBack(String result) {
-                            Log.d("result", result);
-                            URLtool urLtool = new URLtool(URLtool.getUrlCallNumber(storeName, result), CallActivity.this);
-                            urlTool.setOnCompleted(new URLtool.OnCompletedListener() {
-                                @Override
-                                public void OnCompleted(String httpResult) {
-                                    reFresh();
-                                }
-                            });
-
-                            urLtool.execute();
-
-                        }
-                    });
-                    waitNumRcv.setAdapter(waitNumAdapter);
-
-                } else {
+                for(int i=0; i<resultRemoved.length; i++) {
 
                 }
+
+                //依序將等待號碼傳入Adapter，取得等待號碼處理次數
+                int processRound = resultRemoved.length / 5;
+                int procerrTime = resultRemoved.length % 5;
+
+                processWaitNumber(processRound, procerrTime, resultRemoved);
+                WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
+                    @Override
+                    public void onCallBack(String result) {
+                        Log.d("result", result);
+                        URLtool urlTool2 = new URLtool(URLtool.getUrlCallNumber(storeName, result), CallActivity.this);
+                        urlTool2.setOnCompleted(new URLtool.OnCompletedListener() {
+                            @Override
+                            public void OnCompleted(String httpResult) {
+                                waitNumberArrayList.clear();
+                                reFresh();
+                            }
+                        });
+
+                        urlTool2.execute();
+
+                    }
+                });
+                waitNumRcv.setAdapter(waitNumAdapter);
+
+            } else {
+
+            }
 
             }
         });

@@ -138,7 +138,7 @@ public class URLtool extends AsyncTask<Void, Void, String> {
 
     static public String getUrlCallNumber(String storeName, String callnum) {
         return CommonData.SERVER_IP + "/" + CommonData.CALL_NUM_API +
-                "?" + "store_name=" + storeName + "&" + "callnum=" + callnum;
+                "?" + "storename=" + storeName + "&" + "callnum=" + callnum;
     }
 
     static public String getHttpResult(String httpResultOri) {
