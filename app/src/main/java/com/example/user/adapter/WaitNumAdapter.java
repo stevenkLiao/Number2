@@ -22,7 +22,7 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
     private Context mContext;
     private LayoutInflater mInflater;
     private List<WaitNumberArray> WaitNumberArrayList;
-    private List<String> waitNumber;
+    private List<String> waitNumber; //利用List來達到自由伸縮 Array 的目的
     private String[] waitNumberArray;
     private WaitNumAdapter.WaitNumCallback waitNumCallback;
 
@@ -166,6 +166,7 @@ public class WaitNumAdapter extends RecyclerView.Adapter<WaitNumAdapter.ViewHold
         }
     }
 
+    //設定單一等待號碼欄位
     private void setWaitNumber(TextView waitNumber_tv, String waitNumber_str) {
         if(waitNumber_str!=null){
 
