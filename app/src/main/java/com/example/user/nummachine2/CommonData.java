@@ -16,6 +16,6 @@ public class CommonData {
 
     public static final String QUERY_DONE_NUM_API = "";
 
-    public static final String INSERT_NUM_API = "";
+    public static final String INSERT_NUM_API = "insertnum.php";
 
 }
