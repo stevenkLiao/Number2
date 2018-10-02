@@ -192,28 +192,29 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button4: //自訂叫號
-                if(!takeEdt.getText().toString().equals("")) {
-                    int takeEdtInt = Integer.valueOf(takeEdt.getText().toString());
-                    String takeNum;
-
-                    if(takeEdtInt < 10) {
-                        takeNum = "0" + String.valueOf(takeEdtInt);
-                    } else {
-                        takeNum = String.valueOf(takeEdtInt);
-                    }
-
-                    urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, takeNum), CallActivity.this);
-                    urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
-                        @Override
-                        public void OnCompleted(String httpResult) {
-                            waitNumberArrayList.clear();
-                            reFresh();
-                        }
-                    });
-
-                    urlToolCallNum.execute();
-                    takeEdt.setText("");
-                }
+//                if(!takeEdt.getText().toString().equals("")) {
+//                    int takeEdtInt = Integer.valueOf(takeEdt.getText().toString());
+//                    String takeNum;
+//
+//                    if(takeEdtInt < 10) {
+//                        takeNum = "0" + String.valueOf(takeEdtInt);
+//                    } else {
+//                        takeNum = String.valueOf(takeEdtInt);
+//                    }
+//
+//                    urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, takeNum), CallActivity.this);
+//                    urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
+//                        @Override
+//                        public void OnCompleted(String httpResult) {
+//                            waitNumberArrayList.clear();
+//                            reFresh();
+//                        }
+//                    });
+//
+//                    urlToolCallNum.execute();
+//                    takeEdt.setText("");
+//                }
+                SocketTool.createSocket();
 
                 break;
 

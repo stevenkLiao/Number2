@@ -24,11 +24,11 @@ public class SocketTool {
 
     private static InputStreamReader isr;
 
-    BufferedReader br;
+    private static BufferedReader br;
 
-    String response;
+    private static String response;
 
-    OutputStream outputStream;
+    private static OutputStream outputStream;
 
     public void SocketTool() {
         threadPool = Executors.newCachedThreadPool();
@@ -39,13 +39,14 @@ public class SocketTool {
         threadPool.execute(new Runnable() {
             @Override
             public void run() {
-                try {
-                    socket = new Socket("220.135.192.24", 12345);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-
-                }
+                
+//                try {
+//                    //socket = new Socket("220.135.192.24", 12345);
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//
+//                }
             }
         });
 
@@ -55,11 +56,51 @@ public class SocketTool {
         threadPool.execute(new Runnable() {
             @Override
             public void run() {
-//                try {
-//
-//                }
+                try {
+                    is = socket.getInputStream();
+
+                    isr = new InputStreamReader(is);
+                    br = new BufferedReader(isr);
+
+                    response = br.readLine();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        });
+    }
+
+    public static void sendSocket(final String sendMsg) {
+        threadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    outputStream = socket.getOutputStream();
+                    outputStream.write(sendMsg.getBytes());
+                    outputStream.flush();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
+
             }
         });
+    }
+
+    public static void closeSocket() {
+        try {
+            outputStream.close();
+            br.close();
+            socket.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 }
