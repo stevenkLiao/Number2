@@ -1,6 +1,7 @@
 package com.example.user.nummachine2;
 
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Button;
 
 import java.io.BufferedReader;
@@ -30,23 +31,27 @@ public class SocketTool {
 
     private static OutputStream outputStream;
 
-    public void SocketTool() {
+    public static void initSocketTool() {
         threadPool = Executors.newCachedThreadPool();
+    }
+
+    public static ExecutorService getInstance() {
+        return threadPool;
     }
 
 
     public static void createSocket() {
-        threadPool.execute(new Runnable() {
+        getInstance().execute(new Runnable() {
             @Override
             public void run() {
-                
-//                try {
-//                    //socket = new Socket("220.135.192.24", 12345);
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//
-//                }
+
+                try {
+                    socket = new Socket("220.135.192.24", 12345);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+
+                }
             }
         });
 
@@ -74,7 +79,7 @@ public class SocketTool {
     }
 
     public static void sendSocket(final String sendMsg) {
-        threadPool.execute(new Runnable() {
+        getInstance().execute(new Runnable() {
             @Override
             public void run() {
 

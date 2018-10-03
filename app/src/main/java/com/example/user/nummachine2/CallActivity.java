@@ -31,6 +31,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
     private List<WaitNumAdapter.WaitNumberArray> waitNumberArrayList;
     private WaitNumAdapter.WaitNumCallback waitNumCallback;
     private URLtool urlToolCallNum, urlToolgetNum;
+    private SocketTool socketTool;
 
     //Touch物件，控制按鈕變色
     TextView.OnTouchListener conBtntouch = new TextView.OnTouchListener(){
@@ -87,6 +88,9 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
+
+        //設定Socket初始
+        SocketTool.initSocketTool();
 
         waitNumberArrayList = new ArrayList<>();
         storeName = getIntent().getStringExtra("storeName");
@@ -219,25 +223,27 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.button6: //依序叫號
-                int conNumInt = Integer.valueOf(conNum_tv.getText().toString());
-                String conNum;
+//                int conNumInt = Integer.valueOf(conNum_tv.getText().toString());
+//                String conNum;
+//
+//                if(conNumInt < 10) {
+//                    conNum = "0" + String.valueOf(conNumInt);
+//                } else {
+//                    conNum = String.valueOf(conNumInt);
+//                }
+//
+//                urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, conNum), CallActivity.this);
+//                urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
+//                    @Override
+//                    public void OnCompleted(String httpResult) {
+//                        waitNumberArrayList.clear();
+//                        reFresh();
+//                    }
+//                });
+//
+//                urlToolCallNum.execute();
+                SocketTool.sendSocket("success!! oh ya ya ya ya");
 
-                if(conNumInt < 10) {
-                    conNum = "0" + String.valueOf(conNumInt);
-                } else {
-                    conNum = String.valueOf(conNumInt);
-                }
-
-                urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, conNum), CallActivity.this);
-                urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
-                    @Override
-                    public void OnCompleted(String httpResult) {
-                        waitNumberArrayList.clear();
-                        reFresh();
-                    }
-                });
-
-                urlToolCallNum.execute();
                 break;
         }
     }
