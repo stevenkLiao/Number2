@@ -68,6 +68,7 @@ public class SocketTool {
                     br = new BufferedReader(isr);
 
                     response = br.readLine();
+                    Log.d("liao", response);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -87,6 +88,8 @@ public class SocketTool {
                     outputStream = socket.getOutputStream();
                     outputStream.write(sendMsg.getBytes());
                     outputStream.flush();
+
+                    receiverSocket();
 
                 } catch (IOException e) {
                     e.printStackTrace();
