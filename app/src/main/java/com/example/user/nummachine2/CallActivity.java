@@ -90,8 +90,8 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         //設定Socket初始
-        SocketTool.initSocketTool();
-
+        //SocketTool.initSocketTool();
+        //SocketTool.createSocket();
         waitNumberArrayList = new ArrayList<>();
         storeName = getIntent().getStringExtra("storeName");
 
@@ -196,53 +196,51 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button4: //自訂叫號
-//                if(!takeEdt.getText().toString().equals("")) {
-//                    int takeEdtInt = Integer.valueOf(takeEdt.getText().toString());
-//                    String takeNum;
-//
-//                    if(takeEdtInt < 10) {
-//                        takeNum = "0" + String.valueOf(takeEdtInt);
-//                    } else {
-//                        takeNum = String.valueOf(takeEdtInt);
-//                    }
-//
-//                    urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, takeNum), CallActivity.this);
-//                    urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
-//                        @Override
-//                        public void OnCompleted(String httpResult) {
-//                            waitNumberArrayList.clear();
-//                            reFresh();
-//                        }
-//                    });
-//
-//                    urlToolCallNum.execute();
-//                    takeEdt.setText("");
-//                }
-                SocketTool.createSocket();
+                if(!takeEdt.getText().toString().equals("")) {
+                    int takeEdtInt = Integer.valueOf(takeEdt.getText().toString());
+                    String takeNum;
+
+                    if(takeEdtInt < 10) {
+                        takeNum = "0" + String.valueOf(takeEdtInt);
+                    } else {
+                        takeNum = String.valueOf(takeEdtInt);
+                    }
+
+                    urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, takeNum), CallActivity.this);
+                    urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
+                        @Override
+                        public void OnCompleted(String httpResult) {
+                            waitNumberArrayList.clear();
+                            reFresh();
+                        }
+                    });
+
+                    urlToolCallNum.execute();
+                    takeEdt.setText("");
+                }
 
                 break;
 
             case R.id.button6: //依序叫號
-//                int conNumInt = Integer.valueOf(conNum_tv.getText().toString());
-//                String conNum;
-//
-//                if(conNumInt < 10) {
-//                    conNum = "0" + String.valueOf(conNumInt);
-//                } else {
-//                    conNum = String.valueOf(conNumInt);
-//                }
-//
-//                urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, conNum), CallActivity.this);
-//                urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
-//                    @Override
-//                    public void OnCompleted(String httpResult) {
-//                        waitNumberArrayList.clear();
-//                        reFresh();
-//                    }
-//                });
-//
-//                urlToolCallNum.execute();
-                SocketTool.sendSocket("test");
+                int conNumInt = Integer.valueOf(conNum_tv.getText().toString());
+                String conNum;
+
+                if(conNumInt < 10) {
+                    conNum = "0" + String.valueOf(conNumInt);
+                } else {
+                    conNum = String.valueOf(conNumInt);
+                }
+
+                urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, conNum), CallActivity.this);
+                urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
+                    @Override
+                    public void OnCompleted(String httpResult) {
+                        waitNumberArrayList.clear();
+                        reFresh();
+                    }
+                });
+
+                urlToolCallNum.execute();
 
                 break;
         }

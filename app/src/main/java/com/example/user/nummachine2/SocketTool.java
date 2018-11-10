@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 
 public class SocketTool {
 
-    private Handler mainHandler;
+    private static Handler mainHandler;
 
     private static Socket socket;
 
@@ -41,7 +41,7 @@ public class SocketTool {
 
 
     public static void createSocket() {
-        getInstance().execute(new Runnable() {
+        threadPool.execute(new Runnable() {
             @Override
             public void run() {
 
@@ -57,18 +57,18 @@ public class SocketTool {
 
     }
 
-    public static void receiverSocket() {
+    public static void receiverSocket(PadActivity.SocketCallback socketCallback) {
         threadPool.execute(new Runnable() {
             @Override
             public void run() {
                 try {
-                    is = socket.getInputStream();
 
-                    isr = new InputStreamReader(is);
-                    br = new BufferedReader(isr);
+                        is = socket.getInputStream();
+                        isr = new InputStreamReader(is);
+                        br = new BufferedReader(isr);
 
-                    response = br.readLine();
-                    Log.d("liao", response);
+                        response = br.readLine();
+                        Log.d("liao", response + "aa");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -79,21 +79,34 @@ public class SocketTool {
         });
     }
 
-    public static void sendSocket(final String sendMsg) {
-        getInstance().execute(new Runnable() {
+    public static void sendSocket(final String sendMsg, Handler handler) {
+        mainHandler = handler;
+        threadPool.execute(new Runnable() {
             @Override
             public void run() {
 
                 try {
-                    outputStream = socket.getOutputStream();
-                    outputStream.write(sendMsg.getBytes());
-                    outputStream.flush();
+                    while (true) {
 
-                    receiverSocket();
+                        outputStream = socket.getOutputStream();
+                        outputStream.write(sendMsg.getBytes());
+                        outputStream.flush();
+                        //SocketTool.receiverSocket();
+                        is = socket.getInputStream();
+                        isr = new InputStreamReader(is);
+                        br = new BufferedReader(isr);
+
+                        response = br.readLine();
+                        mainHandler.obtainMessage(0, response).sendToTarget();
+                        Thread.sleep(2000);
+                        Log.d("liao", response);
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
             }
