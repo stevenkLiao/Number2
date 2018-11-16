@@ -54,7 +54,6 @@
             />
         <activity android:name=".PadActivity" />
         <activity android:name=".AltActivity" />
-        <activity android:name=".NewsActivity"></activity>
     </application>
 
 </manifest>

@@ -17,7 +17,6 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
     TextView logBtn, rigBtn;
     EditText edtEmail, edtPW;
     String strEmail, strPW;
-    URLtool urlTool;
 
     //Touch物件，控制按鈕變色
     TextView.OnTouchListener TVtouch = new TextView.OnTouchListener(){
@@ -25,11 +24,11 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                //logBtn.setTextColor(Color.parseColor("#dddddd"));
                 logBtn.setBackgroundResource(R.drawable.titledown);
+
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                //logBtn.setTextColor(Color.parseColor("#000000"));
                 logBtn.setBackgroundResource(R.drawable.title);
+
             }
             return false;
         }
@@ -41,11 +40,11 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                Log.e("touch", "down");
                 rigBtn.setBackgroundResource(R.drawable.titledown);
+
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                Log.e("touch", "up");
                 rigBtn.setBackgroundResource(R.drawable.title);
+
             }
             return false;
         }
@@ -55,10 +54,12 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
+
         logBtn = (TextView) findViewById(R.id.textView9);
         rigBtn = (TextView) findViewById(R.id.textView10);
         edtEmail = (EditText) findViewById(R.id.editText);
         edtPW = (EditText) findViewById(R.id.editText2);
+
         logBtn.setOnClickListener(this);
         rigBtn.setOnClickListener(this);
 
@@ -83,11 +84,8 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
                 urlTool.setOnCompleted(new URLtool.OnCompletedListener() {
                     @Override
                     public void OnCompleted(String httpResult) {
-                        Log.d("result", httpResult);
-
                         if(URLtool.getHttpResult(httpResult).equals("LoginSuccess")) {
                             Intent intent2 = new Intent(LogActivity.this, MainFlameActivity.class);
-                            intent2.putExtra("email", strEmail);
 
                             startActivity(intent2);
                             LogActivity.this.finish();
@@ -99,6 +97,7 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
                                 }
                             });
                         }
+
                     }
                 });
 
@@ -109,6 +108,8 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.textView10:
                 Intent intent = new Intent(this, RegisterActivity.class);
                 startActivity(intent);
+                this.finish();
+
                 break;
         }
     }

@@ -44,9 +44,11 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
         urlTool.setOnCompleted(new URLtool.OnCompletedListener() {
             @Override
             public void OnCompleted(String httpResult) {
-                Log.d("result", httpResult);
+
                 String[] result = httpResult.split("/");
                 if(result[0].equals("200")) {
+
+                    //設置店名
                     tvStoreName.setText(result[1]);
                     storeName = result[1];
                 } else {
@@ -85,9 +87,7 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
                 break;
 
             case R.id.ll_call:
-                Intent intent = new Intent(this, CallActivity.class);
-                intent.putExtra("storeName", storeName);
-                startActivity(intent);
+                startActivity(new Intent(MainFlameActivity.this, CallActivity.class));
                 break;
         }
     }

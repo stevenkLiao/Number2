@@ -26,12 +26,9 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
     private TextView conNum_tv;
     private Button conBtn, takeBtn;
     private RecyclerView waitNumRcv;
-    private CallFragment.OnFragmentInteractionListener mListener;
     private String storeName;
     private List<WaitNumAdapter.WaitNumberArray> waitNumberArrayList;
-    private WaitNumAdapter.WaitNumCallback waitNumCallback;
     private URLtool urlToolCallNum, urlToolgetNum;
-    private SocketTool socketTool;
 
     //Touch物件，控制按鈕變色
     TextView.OnTouchListener conBtntouch = new TextView.OnTouchListener(){
@@ -89,9 +86,6 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        //設定Socket初始
-        //SocketTool.initSocketTool();
-        //SocketTool.createSocket();
         waitNumberArrayList = new ArrayList<>();
         storeName = getIntent().getStringExtra("storeName");
 
@@ -151,9 +145,9 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
 
                     //依序將等待號碼傳入Adapter，取得等待號碼處理次數
                     int processRound = resultRemoved.length / 5;
-                    int procerrTime = resultRemoved.length % 5;
+                    int processTime = resultRemoved.length % 5;
 
-                    processWaitNumber(processRound, procerrTime, resultRemoved);
+                    processWaitNumber(processRound, processTime, resultRemoved);
                     WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
                         @Override
                         public void onCallBack(String result) {
@@ -200,6 +194,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                     int takeEdtInt = Integer.valueOf(takeEdt.getText().toString());
                     String takeNum;
 
+                    //如果號碼小於十則須在前面補零
                     if(takeEdtInt < 10) {
                         takeNum = "0" + String.valueOf(takeEdtInt);
                     } else {

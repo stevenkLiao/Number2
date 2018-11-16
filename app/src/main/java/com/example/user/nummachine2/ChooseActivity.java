@@ -27,11 +27,11 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                //store_tv.setTextColor(Color.parseColor("#ffffff"));
                 store_tv.setBackgroundResource(R.drawable.titledown);
+
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                //store_tv.setTextColor(Color.parseColor("#ffffff"));
                 store_tv.setBackgroundResource(R.drawable.title);
+
             }
             return false;
         }
@@ -43,11 +43,11 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                //consu_tv.setTextColor(Color.parseColor("#dddddd"));
                 consu_tv.setBackgroundResource(R.drawable.titledown);
+
             } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                //consu_tv.setTextColor(Color.parseColor("#000000"));
                 consu_tv.setBackgroundResource(R.drawable.title);
+
             }
             return false;
         }
@@ -62,19 +62,6 @@ public class ChooseActivity extends AppCompatActivity implements View.OnClickLis
         Tittle = (TextView) findViewById(R.id.textView4);
         store_tv.setOnClickListener(this);
         consu_tv.setOnClickListener(this);
-
-        /*權限請求*/
-        /*
-        int permission_st = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(permission_st != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(
-                    this,
-                    new String[] {android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE},
-                    REQUEST_STORAGE
-            );
-        }
-        */
 
         int permission_cam = ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA);
         if(permission_cam != PackageManager.PERMISSION_GRANTED) {
