@@ -16,10 +16,6 @@ import com.example.user.Utils.DialogUtil;
 
 import org.w3c.dom.Text;
 
-/**
- * Created by Mitake on 2018/3/7.
- */
-
 public class MainFlameActivity extends AppCompatActivity implements View.OnClickListener
 
 {
@@ -35,6 +31,7 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
         tvStoreName = (TextView) findViewById(R.id.textView14);
 
 
+        //取得信箱，並透過信箱取得店名
         Intent intent = getIntent();
         strEmail = intent.getStringExtra("email");
 
@@ -83,7 +80,11 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
         switch (id) {
 
             case R.id.ll_board:
-                startActivity(new Intent(MainFlameActivity.this, PadActivity.class));
+                //傳送店名給PadActivity
+                Intent intent = new Intent(MainFlameActivity.this, PadActivity.class);
+                intent.putExtra("storeNamr", storeName);
+                startActivity(intent);
+
                 break;
 
             case R.id.ll_call:

@@ -57,27 +57,27 @@ public class SocketTool {
 
     }
 
-    public static void receiverSocket(PadActivity.SocketCallback socketCallback) {
-        threadPool.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-
-                        is = socket.getInputStream();
-                        isr = new InputStreamReader(is);
-                        br = new BufferedReader(isr);
-
-                        response = br.readLine();
-                        Log.d("liao", response + "aa");
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-        });
-    }
+//    public static void receiverSocket(PadActivity.SocketCallback socketCallback) {
+//        threadPool.execute(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//
+//                        is = socket.getInputStream();
+//                        isr = new InputStreamReader(is);
+//                        br = new BufferedReader(isr);
+//
+//                        response = br.readLine();
+//                        Log.d("liao", response + "aa");
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//
+//        });
+//    }
 
     public static void sendSocket(final String sendMsg, Handler handler) {
         mainHandler = handler;
@@ -91,7 +91,7 @@ public class SocketTool {
                         outputStream = socket.getOutputStream();
                         outputStream.write(sendMsg.getBytes());
                         outputStream.flush();
-                        //SocketTool.receiverSocket();
+
                         is = socket.getInputStream();
                         isr = new InputStreamReader(is);
                         br = new BufferedReader(isr);

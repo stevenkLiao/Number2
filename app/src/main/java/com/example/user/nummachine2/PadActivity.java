@@ -1,5 +1,6 @@
 package com.example.user.nummachine2;
 
+import android.app.FragmentManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Handler;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class PadActivity extends AppCompatActivity {
 
     private ImageView ivCode;
+    private String storeName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +32,26 @@ public class PadActivity extends AppCompatActivity {
 
         ivCode = (ImageView) findViewById(R.id.imageView3);
 
+        storeName = getIntent().getStringExtra("storeName");
+
         SocketTool.initSocketTool();
         SocketTool.createSocket();
-        SocketTool.sendSocket("test", socketHandler);
 
+        //每兩秒傳送號碼需求
+        SocketTool.sendSocket(storeName, socketHandler);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SocketTool.closeSocket();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SocketTool.closeSocket();
     }
 
     private final Handler socketHandler = new Handler() {
