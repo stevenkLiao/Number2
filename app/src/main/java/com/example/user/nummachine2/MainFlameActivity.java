@@ -79,16 +79,20 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
         int id = view.getId();
         switch (id) {
 
-            case R.id.ll_board:
-                //傳送店名給PadActivity
-                Intent intent = new Intent(MainFlameActivity.this, PadActivity.class);
-                intent.putExtra("storeNamr", storeName);
+            case R.id.ll_call:
+                //傳送店名給CallActivity
+                Intent intent = new Intent(MainFlameActivity.this, CallActivity.class);
+                intent.putExtra("storeName", storeName);
                 startActivity(intent);
 
                 break;
 
-            case R.id.ll_call:
-                startActivity(new Intent(MainFlameActivity.this, CallActivity.class));
+            case R.id.ll_board:
+                //傳送店名給PadActivity
+                Intent intent2 = new Intent(MainFlameActivity.this, PadActivity.class);
+                intent2.putExtra("storeName", storeName);
+                startActivity(new Intent(MainFlameActivity.this, PadActivity.class));
+
                 break;
         }
     }

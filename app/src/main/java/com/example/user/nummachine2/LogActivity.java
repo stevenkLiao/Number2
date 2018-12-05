@@ -86,7 +86,7 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
                     public void OnCompleted(String httpResult) {
                         if(URLtool.getHttpResult(httpResult).equals("LoginSuccess")) {
                             Intent intent2 = new Intent(LogActivity.this, MainFlameActivity.class);
-
+                            intent2.putExtra("email", strEmail);
                             startActivity(intent2);
                             LogActivity.this.finish();
                         } else {
