@@ -14,7 +14,7 @@ import com.example.user.Utils.DialogUtil;
 
 public class LogActivity extends AppCompatActivity implements View.OnClickListener{
 
-    TextView logBtn, rigBtn;
+    TextView logBtn;
     EditText edtEmail, edtPW;
     String strEmail, strPW;
 
@@ -34,38 +34,20 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
         }
     };
 
-    //Touch物件，控制按鈕變色
-    TextView.OnTouchListener TVtouch2 = new TextView.OnTouchListener(){
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                rigBtn.setBackgroundResource(R.drawable.titledown);
-
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                rigBtn.setBackgroundResource(R.drawable.title);
-
-            }
-            return false;
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
 
         logBtn = (TextView) findViewById(R.id.textView9);
-        rigBtn = (TextView) findViewById(R.id.textView10);
         edtEmail = (EditText) findViewById(R.id.editText);
         edtPW = (EditText) findViewById(R.id.editText2);
 
         logBtn.setOnClickListener(this);
-        rigBtn.setOnClickListener(this);
 
         //按鈕變色
         logBtn.setOnTouchListener(TVtouch);
-        rigBtn.setOnTouchListener(TVtouch2);
+
     }
 
     @Override
