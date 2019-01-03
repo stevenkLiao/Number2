@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
 
+import com.example.user.Utils.DialogUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,30 +59,16 @@ public class SocketTool {
 
     }
 
-//    public static void receiverSocket(PadActivity.SocketCallback socketCallback) {
-//        threadPool.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//
-//                        is = socket.getInputStream();
-//                        isr = new InputStreamReader(is);
-//                        br = new BufferedReader(isr);
-//
-//                        response = br.readLine();
-//                        Log.d("liao", response + "aa");
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//
-//        });
-//    }
 
     public static void sendSocket(final String sendMsg, Handler handler) {
         mainHandler = handler;
+
+        //判斷
+        if(socket == null) {
+            mainHandler.obtainMessage(1, R.string.SocketNotExist).sendToTarget();
+
+            return;
+        }
         threadPool.execute(new Runnable() {
             @Override
             public void run() {

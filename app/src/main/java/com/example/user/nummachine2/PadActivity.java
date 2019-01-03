@@ -31,7 +31,6 @@ public class PadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pad);
 
         ivCode = (ImageView) findViewById(R.id.imageView3);
-
         storeName = getIntent().getStringExtra("storeName");
 
         SocketTool.initSocketTool();
@@ -60,6 +59,8 @@ public class PadActivity extends AppCompatActivity {
                 case 0:
                     BarcodeEncoder encoder = new BarcodeEncoder();
                     try {
+
+
                         Bitmap bit = encoder.encodeBitmap(msg.obj.toString(), BarcodeFormat.QR_CODE, 250, 250);
                         ivCode.setImageBitmap(bit);
 

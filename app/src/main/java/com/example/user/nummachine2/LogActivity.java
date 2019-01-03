@@ -87,12 +87,6 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
 
                 break;
 
-            case R.id.textView10:
-                Intent intent = new Intent(this, RegisterActivity.class);
-                startActivity(intent);
-                this.finish();
-
-                break;
         }
     }
 

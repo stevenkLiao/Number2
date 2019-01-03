@@ -1,9 +1,12 @@
 package com.example.user.nummachine2;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 
 import com.amazonaws.util.IOUtils;
+import com.example.user.Utils.DialogUtil;
+import com.example.user.Utils.SystemUtility;
 
 import org.apache.http.conn.ConnectTimeoutException;
 
@@ -32,6 +35,9 @@ public class URLtool extends AsyncTask<Void, Void, String> {
 
     /** 網址 */
     private String mUrl = "";
+
+    /** CODE */
+    public static final String NO_INTERNET = "NO_INTERNET";
 
     /**
      * 建構子
@@ -69,16 +75,18 @@ public class URLtool extends AsyncTask<Void, Void, String> {
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Content-Type", "text/plain; charset=utf-8");
 
-            String respMessage = conn.getResponseMessage();
-            statusCode = conn.getResponseCode();
-
-            if (statusCode != HttpURLConnection.HTTP_OK) {
+            if (SystemUtility.checkNetworkEnable(mContext)) {
+                String respMessage = conn.getResponseMessage();
+                statusCode = conn.getResponseCode();
                 InputStream is = conn.getInputStream();
                 rep = getStringFromInputStream(is);
-            }
 
-            InputStream is = conn.getInputStream();
-            rep = getStringFromInputStream(is);
+                return String.valueOf(statusCode) + "/" + rep;
+
+            } else {
+                return NO_INTERNET;
+
+            }
 
         } catch (ConnectTimeoutException e) {
             e.printStackTrace();
@@ -90,12 +98,20 @@ public class URLtool extends AsyncTask<Void, Void, String> {
             }
         }
 
-        return String.valueOf(statusCode) + "/" + rep;
+        return null;
     }
 
     @Override
     protected void onPostExecute(String httpResult) {
-        if(mListener != null) {
+        if(httpResult.equals(NO_INTERNET)) {
+            DialogUtil.showPostiveDialog(mContext, mContext.getResources().getString(R.string.NoInterNetAndCheck), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        } else {
+
             mListener.OnCompleted(httpResult);
         }
     }
