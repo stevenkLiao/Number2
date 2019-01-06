@@ -91,7 +91,7 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
                 //傳送店名給PadActivity
                 Intent intent2 = new Intent(MainFlameActivity.this, PadActivity.class);
                 intent2.putExtra("storeName", storeName);
-                startActivity(new Intent(MainFlameActivity.this, PadActivity.class));
+                startActivity(intent2);
 
                 break;
         }

@@ -1,5 +1,6 @@
 package com.example.user.nummachine2;
 
+import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import java.util.concurrent.Executors;
 
 public class SocketTool {
 
+    private static Context mContext;
+
     private static Handler mainHandler;
 
     private static Socket socket;
@@ -33,6 +36,10 @@ public class SocketTool {
 
     private static OutputStream outputStream;
 
+    public void initContext(Context mContext) {
+        this.mContext = mContext;
+    }
+
     public static void initSocketTool() {
         threadPool = Executors.newCachedThreadPool();
     }
@@ -42,13 +49,17 @@ public class SocketTool {
     }
 
 
-    public static void createSocket() {
+    public static void
+    createAndSendSocket(final String sendMsg, final Handler handler, final Context mContext) {
+
         threadPool.execute(new Runnable() {
             @Override
             public void run() {
-
                 try {
                     socket = new Socket("220.135.192.24", 12345);
+
+                    //new 出一個新的Socket後，每兩秒發出號碼查詢
+                    sendSocket(sendMsg, handler, mContext);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -60,12 +71,12 @@ public class SocketTool {
     }
 
 
-    public static void sendSocket(final String sendMsg, Handler handler) {
+    public static void sendSocket(final String sendMsg, Handler handler, Context mContext) {
         mainHandler = handler;
 
         //判斷
         if(socket == null) {
-            mainHandler.obtainMessage(1, R.string.SocketNotExist).sendToTarget();
+            mainHandler.obtainMessage(1, mContext.getResources().getString(R.string.SocketNotExist)).sendToTarget();
 
             return;
         }

@@ -34,10 +34,9 @@ public class PadActivity extends AppCompatActivity {
         storeName = getIntent().getStringExtra("storeName");
 
         SocketTool.initSocketTool();
-        SocketTool.createSocket();
 
-        //每兩秒傳送號碼需求
-        SocketTool.sendSocket(storeName, socketHandler);
+        //建立一個新的Socket並以每兩秒發送號碼查詢
+        SocketTool.createAndSendSocket(storeName, socketHandler, PadActivity.this);
 
     }
 
