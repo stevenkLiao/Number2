@@ -19,7 +19,7 @@
     <string name="RegisterFailed">註冊失敗！</string>
     <string name="NoInterNetAndCheck">未偵測到網路，請確認連線狀態</string>
     <string name="SocketNotExist">Socket連線失敗</string>
-
+    
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

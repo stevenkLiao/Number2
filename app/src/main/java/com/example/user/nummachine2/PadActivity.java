@@ -54,13 +54,14 @@ public class PadActivity extends AppCompatActivity {
 
     private final Handler socketHandler = new Handler() {
         public void handleMessage(Message msg) {
+            String qrMsg = getNumFromQrCode(msg.obj.toString());
+
             switch (msg.what) {
                 case 0:
                     BarcodeEncoder encoder = new BarcodeEncoder();
                     try {
-
-
-                        Bitmap bit = encoder.encodeBitmap(msg.obj.toString(), BarcodeFormat.QR_CODE, 250, 250);
+                        
+                        Bitmap bit = encoder.encodeBitmap(qrMsg, BarcodeFormat.QR_CODE, 250, 250);
                         ivCode.setImageBitmap(bit);
 
                     } catch (WriterException e) {
@@ -71,4 +72,16 @@ public class PadActivity extends AppCompatActivity {
             }
         }
     };
+
+    //整理qrCode所得到的資訊
+    private String getNumFromQrCode(String reTurnMsg) {
+        String[] strArray = reTurnMsg.split(":");
+
+        if(strArray[1].equals("no")) {
+            return "noSocket";
+
+        } else {
+            return strArray[1];
+        }
+    }
 }
