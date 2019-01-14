@@ -49,16 +49,17 @@ public class SocketTool {
     }
 
 
-    public static void createSocket() {
+    public static void
+    createAndSendSocket(final String sendMsg, final Handler handler, final Context mContext) {
 
         threadPool.execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     socket = new Socket("220.135.192.24", 12345);
-                    //createSocketCallback.onSocketCallback();
+
                     //new 出一個新的Socket後，每兩秒發出號碼查詢
-                    //sendSocket(sendMsg, handler, mContext);
+                    sendSocket(sendMsg, handler, mContext);
 
                 } catch (IOException e) {
                     e.printStackTrace();

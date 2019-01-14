@@ -27,9 +27,7 @@ public class PadActivity extends AppCompatActivity {
         SocketTool.initSocketTool();
 
         //建立一個新的Socket並以每兩秒發送號碼查詢
-        SocketTool.createSocket();
-
-        SocketTool.sendSocket(storeName, socketHandler, PadActivity.this);
+        SocketTool.createAndSendSocket(storeName, socketHandler, PadActivity.this);
 
     }
 
@@ -47,14 +45,13 @@ public class PadActivity extends AppCompatActivity {
 
     private final Handler socketHandler = new Handler() {
         public void handleMessage(Message msg) {
-            String qrMsg = getNumFromQrCode(msg.obj.toString());
-
             switch (msg.what) {
                 case 0:
                     BarcodeEncoder encoder = new BarcodeEncoder();
                     try {
 
-                        Bitmap bit = encoder.encodeBitmap(qrMsg, BarcodeFormat.QR_CODE, 250, 250);
+
+                        Bitmap bit = encoder.encodeBitmap(msg.obj.toString(), BarcodeFormat.QR_CODE, 250, 250);
                         ivCode.setImageBitmap(bit);
 
                     } catch (WriterException e) {
