@@ -43,7 +43,9 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
             public void OnCompleted(String httpResult) {
 
                 String[] result = httpResult.split("/");
-                if(result[0].equals("200")) {
+
+                //判斷連線成功，且店名查詢後不為空字串
+                if(result[0].equals("200") && !result[0].equals("")) {
 
                     //設置店名
                     tvStoreName.setText(result[1]);

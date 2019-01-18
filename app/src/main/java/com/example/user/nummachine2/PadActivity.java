@@ -15,6 +15,7 @@ public class PadActivity extends AppCompatActivity {
 
     private ImageView ivCode;
     private String storeName;
+    private boolean isFirstGetIn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,24 @@ public class PadActivity extends AppCompatActivity {
 
         //建立一個新的Socket並以每兩秒發送號碼查詢
         SocketTool.createAndSendSocket(storeName, socketHandler, PadActivity.this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //判斷是否為第一次的Socket鍵結
+        if(isFirstGetIn) {
+            isFirstGetIn = false;
+
+        } else {
+            SocketTool.initSocketTool();
+
+            //建立一個新的Socket並以每兩秒發送號碼查詢
+            SocketTool.createAndSendSocket(storeName, socketHandler, PadActivity.this);
+
+        }
 
     }
 
@@ -75,7 +94,4 @@ public class PadActivity extends AppCompatActivity {
         }
     }
 
-    public interface createSocketCallback{
-        public void onSocketCallback();
-    }
 }
