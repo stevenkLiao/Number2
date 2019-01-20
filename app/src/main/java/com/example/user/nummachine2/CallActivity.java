@@ -130,10 +130,32 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
         urlToolgetNum.setOnCompleted(new URLtool.OnCompletedListener() {
             @Override
             public void OnCompleted(String httpResult) {
-                Log.d("result", httpResult);
+
                 String[] httpStatus = httpResult.split("/");
 
                 if(httpStatus[0].equals("200")) {
+
+                    //如果回傳空值，表示目前沒有等待號碼
+                    if(httpStatus.length == 1) {
+                        DialogUtil.showPostiveDialog(CallActivity.this, getResources().getString(R.string.NoWaitNumber), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        return;
+                    } else if(httpStatus[1].equals("error")) {
+                        DialogUtil.showPostiveDialog(CallActivity.this, getResources().getString(R.string.ConnectionError), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                        return;
+                    }
+
                     //因為正則表示式的關係，利用空格String Array會多一項，要刪除掉
                     String[] result = URLtool.getWaitNum(httpStatus[1]);
                     String[] resultRemoved = new String[result.length-1];
@@ -151,7 +173,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                     WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
                         @Override
                         public void onCallBack(String result) {
-                            Log.d("result", result);
+
                             urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, result), CallActivity.this);
                             urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
                                 @Override

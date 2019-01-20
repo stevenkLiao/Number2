@@ -1,5 +1,6 @@
 package com.example.user.nummachine2;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.example.user.Utils.DialogUtil;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
@@ -35,6 +37,7 @@ public class PadActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
 
         //判斷是否為第一次的Socket鍵結
         if(isFirstGetIn) {
@@ -66,16 +69,28 @@ public class PadActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    BarcodeEncoder encoder = new BarcodeEncoder();
-                    try {
+                    String socketMsg = getNumFromQrCode(msg.obj.toString());
+
+                    if(socketMsg.equals("no")) {
+                        DialogUtil.showPostiveDialog(PadActivity.this, getResources().getString(R.string.NoWaitNumber), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                    } else {
+
+                        BarcodeEncoder encoder = new BarcodeEncoder();
+                        try {
 
 
-                        Bitmap bit = encoder.encodeBitmap(msg.obj.toString(), BarcodeFormat.QR_CODE, 250, 250);
-                        ivCode.setImageBitmap(bit);
+                            Bitmap bit = encoder.encodeBitmap(msg.obj.toString(), BarcodeFormat.QR_CODE, 250, 250);
+                            ivCode.setImageBitmap(bit);
 
-                    } catch (WriterException e) {
-                        e.printStackTrace();
+                        } catch (WriterException e) {
+                            e.printStackTrace();
 
+                        }
                     }
                     break;
             }
@@ -85,13 +100,8 @@ public class PadActivity extends AppCompatActivity {
     //整理qrCode所得到的資訊
     private String getNumFromQrCode(String reTurnMsg) {
         String[] strArray = reTurnMsg.split(":");
+        return strArray[1];
 
-        if(strArray[1].equals("no")) {
-            return "noSocket";
-
-        } else {
-            return strArray[1];
-        }
     }
 
 }
