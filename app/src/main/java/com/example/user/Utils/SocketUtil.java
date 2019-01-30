@@ -72,7 +72,8 @@ public class SocketUtil {
     }
 
 
-    public static void sendSocket(final String sendMsg, Handler handler, Context mContext) {
+    public static void sendSocket(final String sendMsg, Handler handler, Context mContext)
+    {
         mainHandler = handler;
 
         //判斷
