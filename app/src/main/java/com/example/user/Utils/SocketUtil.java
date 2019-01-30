@@ -1,4 +1,4 @@
-package com.example.user.nummachine2;
+package com.example.user.Utils;
 
 import android.content.Context;
 import android.os.Handler;
@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Button;
 
 import com.example.user.Utils.DialogUtil;
+import com.example.user.nummachine2.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class SocketTool {
+public class SocketUtil {
 
     private static Context mContext;
 

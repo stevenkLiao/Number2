@@ -1,12 +1,15 @@
-package com.example.user.nummachine2;
+package com.example.user.Activity;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.user.Utils.SocketUtil;
+import com.example.user.nummachine2.R;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
@@ -25,10 +28,10 @@ public class PadActivity extends AppCompatActivity {
         ivCode = (ImageView) findViewById(R.id.imageView3);
         storeName = getIntent().getStringExtra("storeName");
 
-        SocketTool.initSocketTool();
+        SocketUtil.initSocketTool();
 
         //建立一個新的Socket並以每兩秒發送號碼查詢
-        SocketTool.createAndSendSocket(storeName, socketHandler, PadActivity.this);
+        SocketUtil.createAndSendSocket(storeName, socketHandler, PadActivity.this);
 
     }
 
@@ -41,10 +44,10 @@ public class PadActivity extends AppCompatActivity {
             isFirstGetIn = false;
 
         } else {
-            SocketTool.initSocketTool();
+            SocketUtil.initSocketTool();
 
             //建立一個新的Socket並以每兩秒發送號碼查詢
-            SocketTool.createAndSendSocket(storeName, socketHandler, PadActivity.this);
+            SocketUtil.createAndSendSocket(storeName, socketHandler, PadActivity.this);
 
         }
 
@@ -53,13 +56,13 @@ public class PadActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        SocketTool.closeSocket();
+        SocketUtil.closeSocket();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        SocketTool.closeSocket();
+        SocketUtil.closeSocket();
     }
 
     private final Handler socketHandler = new Handler() {
@@ -69,7 +72,7 @@ public class PadActivity extends AppCompatActivity {
                     BarcodeEncoder encoder = new BarcodeEncoder();
                     try {
 
-
+                        Log.d("liao", msg.obj.toString());
                         Bitmap bit = encoder.encodeBitmap(msg.obj.toString(), BarcodeFormat.QR_CODE, 250, 250);
                         ivCode.setImageBitmap(bit);
 

@@ -1,16 +1,18 @@
-package com.example.user.nummachine2;
+package com.example.user.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.user.CommonData.ConnectionCode;
 import com.example.user.Utils.DialogUtil;
+import com.example.user.Utils.URLUtil;
+import com.example.user.nummachine2.R;
 
 public class LogActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -60,13 +62,13 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
                 strEmail = edtEmail.getText().toString();
                 strPW = edtPW.getText().toString();
 
-                URLtool urlTool;
-                urlTool = new URLtool(URLtool.getUrlForLogin(strEmail, strPW), this);
+                URLUtil urlTool;
+                urlTool = new URLUtil(URLUtil.getUrlForLogin(strEmail, strPW), this);
 
-                urlTool.setOnCompleted(new URLtool.OnCompletedListener() {
+                urlTool.setOnCompleted(new URLUtil.OnCompletedListener() {
                     @Override
                     public void OnCompleted(String httpResult) {
-                        if(URLtool.getHttpResult(httpResult).equals(ConnectionCode.SUCCESS)) {
+                        if(URLUtil.getHttpResult(httpResult).equals(ConnectionCode.SUCCESS)) {
                             Intent intent2 = new Intent(LogActivity.this, MainFlameActivity.class);
                             intent2.putExtra("email", strEmail);
                             startActivity(intent2);

@@ -1,18 +1,17 @@
-package com.example.user.nummachine2;
+package com.example.user.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.user.Utils.DialogUtil;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.user.Utils.URLUtil;
+import com.example.user.nummachine2.R;
 
 import static java.lang.Thread.sleep;
 
@@ -61,12 +60,12 @@ public class RegisterActivity extends AppCompatActivity {
             Pws_st = pws_et.getText().toString();
             Store_st = store_et.getText().toString();
 
-            URLtool urLtool = new URLtool(URLtool.getUrlForRegister(Email_st, Pws_st, Store_st), RegisterActivity.this);
+            URLUtil urlUtil = new URLUtil(URLUtil.getUrlForRegister(Email_st, Pws_st, Store_st), RegisterActivity.this);
 
-            urLtool.setOnCompleted(new URLtool.OnCompletedListener() {
+            urlUtil.setOnCompleted(new URLUtil.OnCompletedListener() {
                 @Override
                 public void OnCompleted(String httpResult) {
-                    if(URLtool.getHttpResult(httpResult).equals("RegisterSucceed")) {
+                    if(com.example.user.Utils.URLUtil.getHttpResult(httpResult).equals("RegisterSucceed")) {
                         DialogUtil.showPostiveDialog(RegisterActivity.this, getResources().getString(R.string.RegisterSucceed), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -86,7 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
 
-            urLtool.execute();
+            urlUtil.execute();
 
             }
         });

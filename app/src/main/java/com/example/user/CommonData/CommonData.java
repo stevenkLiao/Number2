@@ -1,4 +1,4 @@
-package com.example.user.nummachine2;
+package com.example.user.CommonData;
 
 public class CommonData {
 

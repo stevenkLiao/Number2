@@ -1,4 +1,4 @@
-package com.example.user.nummachine2;
+package com.example.user.Activity;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.user.nummachine2.R;
 
 public class ChooseActivity extends AppCompatActivity implements View.OnClickListener {
 

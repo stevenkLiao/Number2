@@ -1,12 +1,11 @@
-package com.example.user.nummachine2;
+package com.example.user.Utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 
-import com.amazonaws.util.IOUtils;
-import com.example.user.Utils.DialogUtil;
-import com.example.user.Utils.SystemUtility;
+import com.example.user.CommonData.CommonData;
+import com.example.user.nummachine2.R;
 
 import org.apache.http.conn.ConnectTimeoutException;
 
@@ -14,18 +13,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * 電文相關使用class
  */
 
-public class URLtool extends AsyncTask<Void, Void, String> {
+public class URLUtil extends AsyncTask<Void, Void, String> {
 
     /** 電文逾時秒數 */
     private static int connectTimeout = 300;
@@ -43,7 +37,7 @@ public class URLtool extends AsyncTask<Void, Void, String> {
      * 建構子
      * @param Url 部份網址
      */
-    public URLtool(String Url, Context ctx) {
+    public URLUtil(String Url, Context ctx) {
         mUrl = Url;
         mContext = ctx;
     }
@@ -116,7 +110,7 @@ public class URLtool extends AsyncTask<Void, Void, String> {
         }
     }
 
-    private static String getStringFromInputStream(InputStream is) throws IOException {
+    static public String getStringFromInputStream(InputStream is) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int len = -1;

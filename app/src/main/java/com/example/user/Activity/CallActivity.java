@@ -1,8 +1,5 @@
-package com.example.user.nummachine2;
+package com.example.user.Activity;
 
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,8 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.user.Utils.DialogUtil;
-import com.example.user.adapter.WaitNumAdapter;
+import com.example.user.Utils.URLUtil;
+import com.example.user.Adapter.WaitNumAdapter;
+import com.example.user.nummachine2.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView waitNumRcv;
     private String storeName;
     private List<WaitNumAdapter.WaitNumberArray> waitNumberArrayList;
-    private URLtool urlToolCallNum, urlToolgetNum;
+    private URLUtil urlToolCallNum, urlToolgetNum;
 
     //Touch物件，控制按鈕變色
     TextView.OnTouchListener conBtntouch = new TextView.OnTouchListener(){
@@ -126,8 +124,8 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void reFresh() {
-        urlToolgetNum = new URLtool(URLtool.getUrlWaitNumber(storeName), this);
-        urlToolgetNum.setOnCompleted(new URLtool.OnCompletedListener() {
+        urlToolgetNum = new URLUtil(URLUtil.getUrlWaitNumber(storeName), this);
+        urlToolgetNum.setOnCompleted(new URLUtil.OnCompletedListener() {
             @Override
             public void OnCompleted(String httpResult) {
                 Log.d("result", httpResult);
@@ -135,7 +133,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
 
                 if(httpStatus[0].equals("200")) {
                     //因為正則表示式的關係，利用空格String Array會多一項，要刪除掉
-                    String[] result = URLtool.getWaitNum(httpStatus[1]);
+                    String[] result = URLUtil.getWaitNum(httpStatus[1]);
                     String[] resultRemoved = new String[result.length-1];
 
                     System.arraycopy(result, 1, resultRemoved, 0, result.length-1);
@@ -152,8 +150,8 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onCallBack(String result) {
                             Log.d("result", result);
-                            urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, result), CallActivity.this);
-                            urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
+                            urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, result), CallActivity.this);
+                            urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
                                 @Override
                                 public void OnCompleted(String httpResult) {
                                     waitNumberArrayList.clear();
@@ -201,8 +199,8 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                         takeNum = String.valueOf(takeEdtInt);
                     }
 
-                    urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, takeNum), CallActivity.this);
-                    urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
+                    urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, takeNum), CallActivity.this);
+                    urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
                         @Override
                         public void OnCompleted(String httpResult) {
                             waitNumberArrayList.clear();
@@ -226,8 +224,8 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                     conNum = String.valueOf(conNumInt);
                 }
 
-                urlToolCallNum = new URLtool(URLtool.getUrlCallNumber(storeName, conNum), CallActivity.this);
-                urlToolCallNum.setOnCompleted(new URLtool.OnCompletedListener() {
+                urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, conNum), CallActivity.this);
+                urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
                     @Override
                     public void OnCompleted(String httpResult) {
                         waitNumberArrayList.clear();

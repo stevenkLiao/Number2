@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.user.nummachine2.CallActivity">
+    tools:context="com.example.user.nummachine2.com.example.user.Activity.CallActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:background="@drawable/callback"
             android:orientation="horizontal"
-            tools:context="com.example.user.nummachine2.ChooseActivity">
+            tools:context="com.example.user.nummachine2.com.example.user.Activity.ChooseActivity">
 
             <LinearLayout
                 android:layout_width="0dp"

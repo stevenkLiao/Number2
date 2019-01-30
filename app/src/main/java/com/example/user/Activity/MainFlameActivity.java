@@ -1,20 +1,17 @@
-package com.example.user.nummachine2;
+package com.example.user.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.user.Utils.DialogUtil;
-
-import org.w3c.dom.Text;
+import com.example.user.Utils.URLUtil;
+import com.example.user.nummachine2.R;
 
 public class MainFlameActivity extends AppCompatActivity implements View.OnClickListener
 
@@ -35,10 +32,10 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
         Intent intent = getIntent();
         strEmail = intent.getStringExtra("email");
 
-        URLtool urlTool;
-        urlTool = new URLtool(URLtool.getUrlForQueryName(strEmail), this);
+        URLUtil urlTool;
+        urlTool = new URLUtil(URLUtil.getUrlForQueryName(strEmail), this);
 
-        urlTool.setOnCompleted(new URLtool.OnCompletedListener() {
+        urlTool.setOnCompleted(new URLUtil.OnCompletedListener() {
             @Override
             public void OnCompleted(String httpResult) {
 

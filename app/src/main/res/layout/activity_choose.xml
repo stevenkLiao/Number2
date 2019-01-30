@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorYellow"
-    tools:context="com.example.user.nummachine2.ChooseActivity">
+    tools:context="com.example.user.nummachine2.com.example.user.Activity.ChooseActivity">
 
     <TextView
         android:id="@+id/textView4"

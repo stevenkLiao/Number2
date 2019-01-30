@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorYellow"
     android:orientation="vertical"
-    tools:context="com.example.user.nummachine2.MainFlameActivity">
+    tools:context="com.example.user.nummachine2.com.example.user.Activity.MainFlameActivity">
 
 
     <LinearLayout

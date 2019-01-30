@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/callback"
-            tools:context="com.example.user.nummachine2.ChooseActivity">
+            tools:context="com.example.user.nummachine2.com.example.user.Activity.ChooseActivity">
 
             <TextView
                 android:id="@+id/textView17"

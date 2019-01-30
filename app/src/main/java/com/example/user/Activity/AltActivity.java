@@ -1,4 +1,4 @@
-package com.example.user.nummachine2;
+package com.example.user.Activity;
 
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.user.nummachine2.R;
 
 public class AltActivity extends AppCompatActivity {
 

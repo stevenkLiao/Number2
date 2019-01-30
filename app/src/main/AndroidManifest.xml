@@ -27,30 +27,30 @@
             android:value="800" />
 
         <activity
-            android:name=".ChooseActivity"
+            android:name="com.example.user.Activity.ChooseActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.example.user.Activity.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LogActivity" >
+        <activity android:name="com.example.user.Activity.LogActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".QrCodeActivity" />
+        <activity android:name="com.example.user.Activity.QrCodeActivity" />
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
 
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
             android:enabled="true" />
 
-        <activity android:name=".MainFlameActivity" />
-        <activity android:name=".CallActivity"
+        <activity android:name="com.example.user.Activity.MainFlameActivity" />
+        <activity android:name="com.example.user.Activity.CallActivity"
                   android:windowSoftInputMode="adjustPan"
             />
-        <activity android:name=".PadActivity" />
-        <activity android:name=".AltActivity" />
+        <activity android:name="com.example.user.Activity.PadActivity" />
+        <activity android:name="com.example.user.Activity.AltActivity" />
     </application>
 
 </manifest>
