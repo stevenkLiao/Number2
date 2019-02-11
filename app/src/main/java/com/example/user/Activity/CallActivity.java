@@ -1,5 +1,6 @@
 package com.example.user.Activity;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.user.Utils.DialogUtil;
 import com.example.user.Utils.URLUtil;
 import com.example.user.Adapter.WaitNumAdapter;
 import com.example.user.nummachine2.R;
@@ -132,38 +134,28 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                 String[] httpStatus = httpResult.split("/");
 
                 if(httpStatus[0].equals("200")) {
-                    //因為正則表示式的關係，利用空格String Array會多一項，要刪除掉
-                    String[] result = URLUtil.getWaitNum(httpStatus[1]);
-                    String[] resultRemoved = new String[result.length-1];
 
-                    System.arraycopy(result, 1, resultRemoved, 0, result.length-1);
+                    //如果回傳空值，表示目前沒有等待號碼
+                    if(httpStatus.length == 1) {
+                        DialogUtil.showPostiveDialog(CallActivity.this, getResources().getString(R.string.NoWaitNumber), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
 
-                    //設定依序叫號號碼
-                    setConNum(resultRemoved[0]);
+                        return;
+                    } else if(httpStatus[1].equals("error")) {
+                        DialogUtil.showPostiveDialog(CallActivity.this, getResources().getString(R.string.ConnectionError), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
 
-                    //依序將等待號碼傳入Adapter，取得等待號碼處理次數
-                    int processRound = resultRemoved.length / 5;
-                    int processTime = resultRemoved.length % 5;
+                        return;
+                    }
 
-                    processWaitNumber(processRound, processTime, resultRemoved);
-                    WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
-                        @Override
-                        public void onCallBack(String result) {
-                            Log.d("result", result);
-                            urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, result), CallActivity.this);
-                            urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
-                                @Override
-                                public void OnCompleted(String httpResult) {
-                                    waitNumberArrayList.clear();
-                                    reFresh();
-                                }
-                            });
-
-                            urlToolCallNum.execute();
-
-                        }
-                    });
-                    waitNumRcv.setAdapter(waitNumAdapter);
 
                 }
 
