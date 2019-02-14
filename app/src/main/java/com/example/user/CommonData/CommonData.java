@@ -14,6 +14,8 @@ public class CommonData {
 
     public static final String QUERY_WAIT_NUM_API = "query_num_all.php";
 
+    public static final String QUERY_LAST_WAIT_NUM_API = "query_last_wait_num.php";
+
     public static final String QUERY_DONE_NUM_API = "";
 
     public static final String INSERT_NUM_API = "insertnum.php";

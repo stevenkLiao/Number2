@@ -146,6 +146,11 @@ public class URLUtil extends AsyncTask<Void, Void, String> {
                 "?" + "store_name=" + storeName;
     }
 
+    static public String getUrlLastWaitNumber(String storeName) {
+        return CommonData.SERVER_IP + "/" + CommonData.QUERY_LAST_WAIT_NUM_API +
+                "?" + "storename=" + storeName;
+    }
+
     static public String getUrlCallNumber(String storeName, String callnum) {
         return CommonData.SERVER_IP + "/" + CommonData.CALL_NUM_API +
                 "?" + "storename=" + storeName + "&" + "callnum=" + callnum;
