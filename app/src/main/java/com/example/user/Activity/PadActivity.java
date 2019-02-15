@@ -99,19 +99,19 @@ public class PadActivity extends AppCompatActivity {
         getLastWaitNumQueryRunnable = new Runnable() {
             @Override
             public void run() {
-                Log.d("liao", "LINE_100");
+
                 urlUtilLastWaitNum = new URLUtil(URLUtil.getUrlLastWaitNumber(storeName), PadActivity.this);
                 urlUtilLastWaitNum.setOnCompleted(new URLUtil.OnCompletedListener() {
                     @Override
                     public void OnCompleted(String httpResult) {
                         //setLastWaitNumToQRcode(httpResult);
+                        Log.d("liao", httpResult);
                         mHandler.postDelayed(getLastWaitNumQueryRunnable, 2000);
-                        Log.d("liao", "LINE_107");
+
                     }
                 });
 
                 urlUtilLastWaitNum.execute();
-                Log.d("liao", "LINE_111");
 
             }
         };
