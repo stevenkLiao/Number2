@@ -41,13 +41,13 @@ public class PadActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        mHandler.post(getLastWaitNumQueryRunnable);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
+        mHandler.removeCallbacks(getLastWaitNumQueryRunnable);
     }
 
     @Override
@@ -56,38 +56,34 @@ public class PadActivity extends AppCompatActivity {
 
     }
 
-    //整理qrCode所得到的資訊
-    private String getNumFromQrCode(String reTurnMsg) {
-        String[] strArray = reTurnMsg.split(":");
-
-        return strArray[1];
-
-    }
-
     //取得等待號碼，加一後並顯示QR code
     private void setLastWaitNumToQRcode(String returnMsg) {
 
-        if(returnMsg.equals("no")) {
-            DialogUtil.showPostiveDialog(PadActivity.this, getResources().getString(R.string.NoWaitNumber), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
+        String[] strSplit = returnMsg.split("/");
+        String waitNumPlus, qrCodeURL;
+        if(strSplit[1].equals("no\n")) {
+            waitNumPlus = "01";
+            qrCodeURL = "http://220.135.192.24/numbermachine2.html?storename=" + storeName + "&yournum=" + waitNumPlus;
 
         } else {
-            int waitNumPlus = Integer.valueOf(returnMsg) + 1;
-
-            BarcodeEncoder encoder = new BarcodeEncoder();
-            try {
-
-                Bitmap bit = encoder.encodeBitmap(Integer.toString(waitNumPlus), BarcodeFormat.QR_CODE, 250, 250);
-                ivCode.setImageBitmap(bit);
-
-            } catch (WriterException e) {
-                e.printStackTrace();
-
+            int waitNumPlusInt = Integer.valueOf(strSplit[1] + 1);
+            //組合等待號碼String
+            if(Integer.valueOf(strSplit[1] + 1) < 10) {
+                waitNumPlus = "0" + String.valueOf(waitNumPlusInt);
+            } else {
+                waitNumPlus = String.valueOf(waitNumPlusInt);
             }
+            qrCodeURL = "http://220.135.192.24/numbermachine2.html?storename=" + storeName + "&yournum=" + waitNumPlus;
+        }
+
+        BarcodeEncoder encoder = new BarcodeEncoder();
+        try {
+
+            Bitmap bit = encoder.encodeBitmap(qrCodeURL, BarcodeFormat.QR_CODE, 250, 250);
+            ivCode.setImageBitmap(bit);
+
+        } catch (WriterException e) {
+            e.printStackTrace();
 
         }
     }
@@ -104,7 +100,8 @@ public class PadActivity extends AppCompatActivity {
                 urlUtilLastWaitNum.setOnCompleted(new URLUtil.OnCompletedListener() {
                     @Override
                     public void OnCompleted(String httpResult) {
-                        //setLastWaitNumToQRcode(httpResult);
+                        //取得目前等待號碼後，加一後顯示QRcode以提供掃描，藉此，將加一後的等待號碼傳到後台的table
+                        setLastWaitNumToQRcode(httpResult);
                         Log.d("liao", httpResult);
                         mHandler.postDelayed(getLastWaitNumQueryRunnable, 2000);
 
@@ -115,7 +112,6 @@ public class PadActivity extends AppCompatActivity {
 
             }
         };
-
         mHandler.post(getLastWaitNumQueryRunnable);
 
     }
