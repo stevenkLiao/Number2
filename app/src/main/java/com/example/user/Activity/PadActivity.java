@@ -66,9 +66,10 @@ public class PadActivity extends AppCompatActivity {
             qrCodeURL = "http://220.135.192.24/numbermachine2.html?storename=" + storeName + "&yournum=" + waitNumPlus;
 
         } else {
-            int waitNumPlusInt = Integer.valueOf(strSplit[1] + 1);
+            String oriWaitNum = strSplit[1].replaceAll("\\n", "").replaceAll("\\r", "");
+            int waitNumPlusInt = Integer.valueOf(oriWaitNum) + 1;
             //組合等待號碼String
-            if(Integer.valueOf(strSplit[1] + 1) < 10) {
+            if(waitNumPlusInt < 10) {
                 waitNumPlus = "0" + String.valueOf(waitNumPlusInt);
             } else {
                 waitNumPlus = String.valueOf(waitNumPlusInt);
