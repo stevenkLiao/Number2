@@ -86,6 +86,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        //宣告等待號碼用的List
         waitNumberArrayList = new ArrayList<>();
         storeName = getIntent().getStringExtra("storeName");
 
@@ -132,6 +133,11 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
             public void OnCompleted(String httpResult) {
                 Log.d("result", httpResult);
                 String[] httpStatus = httpResult.split("/");
+                String[] waitNumArraySplit = httpStatus[1].split(" ");
+                String[] waitNumArray = new String[waitNumArraySplit.length-2];
+
+                //將取得的waitNum做切割，第一項為空白，第二項為00，都要拿掉
+                System.arraycopy(waitNumArraySplit, 2, waitNumArray, 0, waitNumArraySplit.length-2);
 
                 if(httpStatus[0].equals("200")) {
 
@@ -154,6 +160,34 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                         });
 
                         return;
+
+                    //回傳成功，將等候號碼傳入adapter中
+                    } else {
+                        int processRound = waitNumArray.length / 5;
+                        int processTime = waitNumArray.length % 5;
+
+                        //設定依序叫號
+                        setConNum(waitNumArray[0]);
+
+                        processWaitNumber(processRound, processTime, waitNumArray);
+                        WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
+                            @Override
+                            public void onCallBack(String result) {
+                                Log.d("result", result);
+                                urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, result), CallActivity.this);
+                                urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
+                                    @Override
+                                    public void OnCompleted(String httpResult) {
+                                        waitNumberArrayList.clear();
+                                        reFresh();
+                                    }
+                                });
+
+                                urlToolCallNum.execute();
+
+                            }
+                        });
+                        waitNumRcv.setAdapter(waitNumAdapter);
                     }
 
 
