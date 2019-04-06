@@ -163,31 +163,36 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
 
                     //回傳成功，將等候號碼傳入adapter中
                     } else {
-                        int processRound = waitNumArray.length / 5;
-                        int processTime = waitNumArray.length % 5;
+                        //起始時，由於waitNumArray裡沒有項目，所以不進行處理
+                        if(waitNumArray.length != 0) {
 
-                        //設定依序叫號
-                        setConNum(waitNumArray[0]);
+                            int processRound = waitNumArray.length / 5;
+                            int processTime = waitNumArray.length % 5;
 
-                        processWaitNumber(processRound, processTime, waitNumArray);
-                        WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
-                            @Override
-                            public void onCallBack(String result) {
-                                Log.d("result", result);
-                                urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, result), CallActivity.this);
-                                urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
-                                    @Override
-                                    public void OnCompleted(String httpResult) {
-                                        waitNumberArrayList.clear();
-                                        reFresh();
-                                    }
-                                });
+                            //設定依序叫號
+                            setConNum(waitNumArray[0]);
 
-                                urlToolCallNum.execute();
+                            processWaitNumber(processRound, processTime, waitNumArray);
+                            WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
+                                @Override
+                                public void onCallBack(String result) {
+                                    Log.d("result", result);
+                                    urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, result), CallActivity.this);
+                                    urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
+                                        @Override
+                                        public void OnCompleted(String httpResult) {
+                                            waitNumberArrayList.clear();
+                                            reFresh();
+                                        }
+                                    });
 
-                            }
-                        });
-                        waitNumRcv.setAdapter(waitNumAdapter);
+                                    urlToolCallNum.execute();
+
+                                }
+                            });
+                            waitNumRcv.setAdapter(waitNumAdapter);
+
+                        }
                     }
 
 
@@ -263,5 +268,9 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
         }
+    }
+
+    void setWaitNumList() {
+
     }
 }

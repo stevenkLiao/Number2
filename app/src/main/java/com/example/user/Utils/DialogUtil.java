@@ -2,6 +2,7 @@ package com.example.user.Utils;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
@@ -44,5 +45,15 @@ public class DialogUtil {
         builder.setPositiveButton("確定", posListener);
 
         builder.create().show();
+    }
+
+    public static ProgressDialog createProcessDialog(Context context, String title, String msg) {
+        ProgressDialog dialog = new ProgressDialog(context);
+
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.setTitle(title);
+        dialog.setMessage(msg);
+
+        return dialog;
     }
 }

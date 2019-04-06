@@ -11,9 +11,10 @@ import android.widget.TextView;
 
 import com.example.user.Utils.DialogUtil;
 import com.example.user.Utils.URLUtil;
+import com.example.user.framework.ParentActivity;
 import com.example.user.nummachine2.R;
 
-public class MainFlameActivity extends AppCompatActivity implements View.OnClickListener
+public class MainFlameActivity extends ParentActivity implements View.OnClickListener
 
 {
     //宣告view元件
@@ -32,13 +33,14 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
         Intent intent = getIntent();
         strEmail = intent.getStringExtra("email");
 
-        URLUtil urlTool;
+        final URLUtil urlTool;
         urlTool = new URLUtil(URLUtil.getUrlForQueryName(strEmail), this);
 
         urlTool.setOnCompleted(new URLUtil.OnCompletedListener() {
             @Override
             public void OnCompleted(String httpResult) {
 
+                cancelLoading();
                 String[] result = httpResult.split("/");
 
                 //判斷連線成功，且店名查詢後不為空字串
@@ -47,6 +49,17 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
                     //設置店名
                     tvStoreName.setText(result[1]);
                     storeName = result[1];
+
+                    //重製該店的table
+                    URLUtil urlToolForInit = new URLUtil(URLUtil.getInitTable("store_info", storeName), MainFlameActivity.this);
+                    urlToolForInit.setOnCompleted(new URLUtil.OnCompletedListener() {
+                        @Override
+                        public void OnCompleted(String httpResult) {
+                            cancelLoading();
+                        }
+                    });
+                    urlToolForInit.execute();
+                    showLoading();
                 } else {
                     DialogUtil.showPostiveDialog(MainFlameActivity.this, getResources().getString(R.string.WrongPW), new DialogInterface.OnClickListener() {
                         @Override
@@ -60,7 +73,7 @@ public class MainFlameActivity extends AppCompatActivity implements View.OnClick
         });
 
         urlTool.execute();
-
+        showLoading();
         initView();
 
         //設定touch觸發事件

@@ -20,4 +20,6 @@ public class CommonData {
 
     public static final String INSERT_NUM_API = "insertnum.php";
 
+    public static final String INIT_API = "init.php";
+
 }

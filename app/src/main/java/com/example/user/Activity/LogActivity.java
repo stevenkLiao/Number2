@@ -12,9 +12,10 @@ import android.widget.TextView;
 import com.example.user.CommonData.ConnectionCode;
 import com.example.user.Utils.DialogUtil;
 import com.example.user.Utils.URLUtil;
+import com.example.user.framework.ParentActivity;
 import com.example.user.nummachine2.R;
 
-public class LogActivity extends AppCompatActivity implements View.OnClickListener{
+public class LogActivity extends ParentActivity implements View.OnClickListener{
 
     TextView logBtn;
     EditText edtEmail, edtPW;
@@ -68,6 +69,8 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
                 urlTool.setOnCompleted(new URLUtil.OnCompletedListener() {
                     @Override
                     public void OnCompleted(String httpResult) {
+                        cancelLoading();
+
                         if(URLUtil.getHttpResult(httpResult).equals(ConnectionCode.SUCCESS)) {
                             Intent intent2 = new Intent(LogActivity.this, MainFlameActivity.class);
                             intent2.putExtra("email", strEmail);
@@ -86,7 +89,7 @@ public class LogActivity extends AppCompatActivity implements View.OnClickListen
                 });
 
                 urlTool.execute();
-
+                showLoading();
                 break;
 
         }

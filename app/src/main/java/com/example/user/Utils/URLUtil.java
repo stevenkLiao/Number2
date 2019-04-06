@@ -1,10 +1,12 @@
 package com.example.user.Utils;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 
 import com.example.user.CommonData.CommonData;
+import com.example.user.framework.ParentActivity;
 import com.example.user.nummachine2.R;
 
 import org.apache.http.conn.ConnectTimeoutException;
@@ -41,6 +43,8 @@ public class URLUtil extends AsyncTask<Void, Void, String> {
         mUrl = Url;
         mContext = ctx;
     }
+
+    private ProgressDialog progressDialog;
 
     public interface OnCompletedListener {
         void OnCompleted(String httpResult);
@@ -97,6 +101,7 @@ public class URLUtil extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String httpResult) {
+
         if(httpResult.equals(NO_INTERNET)) {
             DialogUtil.showPostiveDialog(mContext, mContext.getResources().getString(R.string.NoInterNetAndCheck), new DialogInterface.OnClickListener() {
                 @Override
@@ -164,6 +169,11 @@ public class URLUtil extends AsyncTask<Void, Void, String> {
     static public String[] getWaitNum(String httpResultOri) {
         String[] split = httpResultOri.split(" +", 0);
         return split;
+    }
+
+    static public String getInitTable(String storetableName, String storeName) {
+        return CommonData.SERVER_IP + "/" + CommonData.INIT_API +
+                "?" + "storeTableName=" + storetableName + "&" + "storeName=" + storeName;
     }
 
 }
