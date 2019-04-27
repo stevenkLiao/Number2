@@ -74,7 +74,8 @@ public class PadActivity extends AppCompatActivity {
             } else {
                 waitNumPlus = String.valueOf(waitNumPlusInt);
             }
-            qrCodeURL = "http://220.135.192.24/numbermachine2.html?storename=" + storeName + "&yournum=" + waitNumPlus;
+            qrCodeURL = "http://220.135.192.24/numbermachine2.html?storeTableNameStr=store_info&storename=" + storeName + "&yournum=" + waitNumPlus;
+            Log.d("liao", qrCodeURL);
         }
 
         BarcodeEncoder encoder = new BarcodeEncoder();

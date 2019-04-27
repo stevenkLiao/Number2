@@ -22,4 +22,7 @@ public class CommonData {
 
     public static final String INIT_API = "init.php";
 
+    //設置全域最新號碼
+    public static int lastNum = 0;
+
 }

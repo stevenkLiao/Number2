@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.user.CommonData.CommonData;
 import com.example.user.Utils.DialogUtil;
 import com.example.user.Utils.URLUtil;
 import com.example.user.framework.ParentActivity;
@@ -50,11 +51,13 @@ public class MainFlameActivity extends ParentActivity implements View.OnClickLis
                     tvStoreName.setText(result[1]);
                     storeName = result[1];
 
-                    //重製該店的table
+                    //重置該店的table
                     URLUtil urlToolForInit = new URLUtil(URLUtil.getInitTable("store_info", storeName), MainFlameActivity.this);
                     urlToolForInit.setOnCompleted(new URLUtil.OnCompletedListener() {
                         @Override
                         public void OnCompleted(String httpResult) {
+                            //重置完畢，將最新號碼歸零
+                            CommonData.lastNum = 0;
                             cancelLoading();
                         }
                     });
