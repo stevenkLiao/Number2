@@ -1,6 +1,7 @@
 package com.example.user.Activity;
 
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +30,8 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
     private String storeName;
     private List<WaitNumAdapter.WaitNumberArray> waitNumberArrayList;
     private URLUtil urlToolCallNum, urlToolgetNum;
+    private Handler handler;
+    private Runnable refreshRunnable;
 
     //Touch物件，控制按鈕變色
     TextView.OnTouchListener conBtntouch = new TextView.OnTouchListener(){
@@ -93,6 +96,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         waitNumRcv.setLayoutManager(layoutManager);
 
+        initRefreshRunnable();
         reFresh();
     }
 
@@ -124,6 +128,16 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
             waitNumberArray.setWaitNumber(tmpWaitNumberTail);
             waitNumberArrayList.add(waitNumberArray);
         }
+    }
+
+    private void initRefreshRunnable() {
+        handler = new Handler();
+        refreshRunnable = new Runnable() {
+            @Override
+            public void run() {
+                reFresh();
+            }
+        };
     }
 
     private void reFresh() {
@@ -198,6 +212,9 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
 
+                //當一次號碼要求結束後，隔2秒會再發一次做刷新
+                //waitNumberArrayList.clear();
+                handler.postDelayed(refreshRunnable, 2000);
             }
         });
 
