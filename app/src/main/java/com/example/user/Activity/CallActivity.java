@@ -32,6 +32,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
     private URLUtil urlToolCallNum, urlToolgetNum;
     private Handler handler;
     private Runnable refreshRunnable;
+    private String tmpHttpResult = "";
 
     //Touch物件，控制按鈕變色
     TextView.OnTouchListener conBtntouch = new TextView.OnTouchListener(){
@@ -145,7 +146,15 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
         urlToolgetNum.setOnCompleted(new URLUtil.OnCompletedListener() {
             @Override
             public void OnCompleted(String httpResult) {
-                Log.d("result", httpResult);
+                //得到的http要在跟之前的結果比較，不一樣才會更新
+                if(!tmpHttpResult.equals(httpResult)) {
+                    tmpHttpResult = httpResult;
+                    waitNumberArrayList.clear();
+                } else {
+                    handler.postDelayed(refreshRunnable, 2000);
+                    return;
+                }
+
                 String[] httpStatus = httpResult.split("/");
                 String[] waitNumArraySplit = httpStatus[1].split(" ");
                 String[] waitNumArray = new String[waitNumArraySplit.length-2];
@@ -190,7 +199,6 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                             WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
                                 @Override
                                 public void onCallBack(String result) {
-                                    Log.d("result", result);
                                     urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, result), CallActivity.this);
                                     urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
                                         @Override
@@ -208,12 +216,8 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
 
                         }
                     }
-
-
                 }
-
                 //當一次號碼要求結束後，隔2秒會再發一次做刷新
-                //waitNumberArrayList.clear();
                 handler.postDelayed(refreshRunnable, 2000);
             }
         });
