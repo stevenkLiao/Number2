@@ -156,6 +156,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 String[] httpStatus = httpResult.split("/");
+                //等待號碼以空白做分隔
                 String[] waitNumArraySplit = httpStatus[1].split(" ");
                 String[] waitNumArray = new String[waitNumArraySplit.length-2];
 

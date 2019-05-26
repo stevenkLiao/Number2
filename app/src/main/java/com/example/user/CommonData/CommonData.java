@@ -22,6 +22,8 @@ public class CommonData {
 
     public static final String INIT_API = "init.php";
 
+    public static final String STORE_TABLE_NAME = "store_info";
+
     //設置全域最新號碼
     public static int lastNum = 0;
 

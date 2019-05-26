@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.user.CommonData.ConnectionCode;
 import com.example.user.Utils.DialogUtil;
+import com.example.user.Utils.TextUtil;
 import com.example.user.Utils.URLUtil;
 import com.example.user.framework.ParentActivity;
 import com.example.user.nummachine2.R;
@@ -59,10 +60,20 @@ public class LogActivity extends ParentActivity implements View.OnClickListener{
         int id = v.getId();
         switch (id) {
             case R.id.textView9:
-                //TODO 登入後端確認
+                //確認是否為空值
                 strEmail = edtEmail.getText().toString();
                 strPW = edtPW.getText().toString();
+                if(TextUtil.checkEmpty(strEmail) || TextUtil.checkEmpty(strPW)) {
+                    DialogUtil.showPostiveDialog(LogActivity.this, getResources().getString(R.string.EmptyAccountPassword), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    return;
+                }
 
+                //不是空值的話，發送帳密確認電文
                 URLUtil urlTool;
                 urlTool = new URLUtil(URLUtil.getUrlForLogin(strEmail, strPW), this);
 

@@ -15,6 +15,7 @@
     <!--Dialog 提示訊息-->
     <string name="WrongStoreName">未搜尋到店名</string>
     <string name="WrongPW">錯誤的帳號密碼！</string>
+    <string name="EmptyAccountPassword">帳號密碼不得為空值</string>
     <string name="RegisterSucceed">註冊成功！</string>
     <string name="RegisterFailed">註冊失敗！</string>
     <string name="NoInterNetAndCheck">未偵測到網路，請確認連線狀態</string>

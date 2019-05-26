@@ -12,6 +12,7 @@
         android:background="@color/colorYellow"
         android:orientation="vertical">
 
+        <!--將上部分依序叫號，自選叫號隱藏-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -101,7 +102,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:background="@drawable/callback"
             android:orientation="vertical">
 
