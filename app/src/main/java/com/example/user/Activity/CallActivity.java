@@ -21,7 +21,7 @@ import com.example.user.nummachine2.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CallActivity extends AppCompatActivity implements View.OnClickListener{
+public class CallActivity extends AppCompatActivity {
 
     private EditText takeEdt;
     private TextView conNum_tv;
@@ -35,60 +35,60 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
     private String tmpHttpResult = "";
 
     //Touch物件，控制按鈕變色
-    TextView.OnTouchListener conBtntouch = new TextView.OnTouchListener(){
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                conBtn.setBackgroundResource(R.drawable.callbtndown);
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                conBtn.setBackgroundResource(R.drawable.callbtn);
-            }
-            return false;
-        }
-    };
-
-    //Touch物件，控制按鈕變色
-    TextView.OnTouchListener takeBtntouch = new TextView.OnTouchListener(){
-
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                takeBtn.setBackgroundResource(R.drawable.callbtndown);
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                takeBtn.setBackgroundResource(R.drawable.callbtn);
-            }
-            return false;
-        }
-    };
+//    TextView.OnTouchListener conBtntouch = new TextView.OnTouchListener(){
+//
+//        @Override
+//        public boolean onTouch(View v, MotionEvent event) {
+//            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                conBtn.setBackgroundResource(R.drawable.callbtndown);
+//            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+//                conBtn.setBackgroundResource(R.drawable.callbtn);
+//            }
+//            return false;
+//        }
+//    };
+//
+//    //Touch物件，控制按鈕變色
+//    TextView.OnTouchListener takeBtntouch = new TextView.OnTouchListener(){
+//
+//        @Override
+//        public boolean onTouch(View v, MotionEvent event) {
+//            if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                takeBtn.setBackgroundResource(R.drawable.callbtndown);
+//            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+//                takeBtn.setBackgroundResource(R.drawable.callbtn);
+//            }
+//            return false;
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call);
 
-        conBtn = (Button) findViewById(R.id.button4);
-        takeBtn = (Button) findViewById(R.id.button6);
-        takeEdt = (EditText) findViewById(R.id.editView6);
+//        conBtn = (Button) findViewById(R.id.button4);
+//        takeBtn = (Button) findViewById(R.id.button6);
+//        takeEdt = (EditText) findViewById(R.id.editView6);
         waitNumRcv = (RecyclerView) findViewById(R.id.waitNumRcv);
-        conNum_tv = (TextView) findViewById(R.id.textView6);
+//        conNum_tv = (TextView) findViewById(R.id.textView6);
 
-        //按鈕變色
-        conBtn.setOnTouchListener(conBtntouch);
-        takeBtn.setOnTouchListener(takeBtntouch);
-
-        //設定按鍵事件
-        conBtn.setOnClickListener(this);
-        takeBtn.setOnClickListener(this);
-        takeEdt.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    takeEdt.setText("");
-                }
-                return false;
-            }
-        });
+//        //按鈕變色
+//        conBtn.setOnTouchListener(conBtntouch);
+//        takeBtn.setOnTouchListener(takeBtntouch);
+//
+//        //設定按鍵事件
+//        conBtn.setOnClickListener(this);
+//        takeBtn.setOnClickListener(this);
+//        takeEdt.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//                    takeEdt.setText("");
+//                }
+//                return false;
+//            }
+//        });
 
         //宣告等待號碼用的List
         waitNumberArrayList = new ArrayList<>();
@@ -165,17 +165,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
 
                 if(httpStatus[0].equals("200")) {
 
-                    //如果回傳空值，表示目前沒有等待號碼
-                    if(httpStatus.length == 1) {
-                        DialogUtil.showPostiveDialog(CallActivity.this, getResources().getString(R.string.NoWaitNumber), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-
-                        return;
-                    } else if(httpStatus[1].equals("error")) {
+                    if(httpStatus[1].equals("error")) {
                         DialogUtil.showPostiveDialog(CallActivity.this, getResources().getString(R.string.ConnectionError), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -194,7 +184,7 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
                             int processTime = waitNumArray.length % 5;
 
                             //設定依序叫號
-                            setConNum(waitNumArray[0]);
+                            //setConNum(waitNumArray[0]);
 
                             processWaitNumber(processRound, processTime, waitNumArray);
                             WaitNumAdapter waitNumAdapter = new WaitNumAdapter(CallActivity.this, waitNumberArrayList, new WaitNumAdapter.WaitNumCallback() {
@@ -226,73 +216,69 @@ public class CallActivity extends AppCompatActivity implements View.OnClickListe
         urlToolgetNum.execute();
     }
 
-    private void setConNum(String conNum) {
-        int takeNum = Integer.valueOf(conNum);
-        if(takeNum < 10) {
-            conNum_tv.setText("00" + String.valueOf(takeNum));
-        } else if(takeNum < 100) {
-            conNum_tv.setText("0" + String.valueOf(takeNum));
-        } else {
-            conNum_tv.setText(String.valueOf(takeNum));
-        }
-    }
+//    private void setConNum(String conNum) {
+//        int takeNum = Integer.valueOf(conNum);
+//        if(takeNum < 10) {
+//            conNum_tv.setText("00" + String.valueOf(takeNum));
+//        } else if(takeNum < 100) {
+//            conNum_tv.setText("0" + String.valueOf(takeNum));
+//        } else {
+//            conNum_tv.setText(String.valueOf(takeNum));
+//        }
+//    }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.button4: //自訂叫號
-                if(!takeEdt.getText().toString().equals("")) {
-                    int takeEdtInt = Integer.valueOf(takeEdt.getText().toString());
-                    String takeNum;
-
-                    //如果號碼小於十則須在前面補零
-                    if(takeEdtInt < 10) {
-                        takeNum = "0" + String.valueOf(takeEdtInt);
-                    } else {
-                        takeNum = String.valueOf(takeEdtInt);
-                    }
-
-                    urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, takeNum), CallActivity.this);
-                    urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
-                        @Override
-                        public void OnCompleted(String httpResult) {
-                            waitNumberArrayList.clear();
-                            reFresh();
-                        }
-                    });
-
-                    urlToolCallNum.execute();
-                    takeEdt.setText("");
-                }
-
-                break;
-
-            case R.id.button6: //依序叫號
-                int conNumInt = Integer.valueOf(conNum_tv.getText().toString());
-                String conNum;
-
-                if(conNumInt < 10) {
-                    conNum = "0" + String.valueOf(conNumInt);
-                } else {
-                    conNum = String.valueOf(conNumInt);
-                }
-
-                urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, conNum), CallActivity.this);
-                urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
-                    @Override
-                    public void OnCompleted(String httpResult) {
-                        waitNumberArrayList.clear();
-                        reFresh();
-                    }
-                });
-
-                urlToolCallNum.execute();
-
-                break;
-        }
-    }
-
-    void setWaitNumList() {
-
-    }
+//    @Override
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.button4: //自訂叫號
+//                if(!takeEdt.getText().toString().equals("")) {
+//                    int takeEdtInt = Integer.valueOf(takeEdt.getText().toString());
+//                    String takeNum;
+//
+//                    //如果號碼小於十則須在前面補零
+//                    if(takeEdtInt < 10) {
+//                        takeNum = "0" + String.valueOf(takeEdtInt);
+//                    } else {
+//                        takeNum = String.valueOf(takeEdtInt);
+//                    }
+//
+//                    urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, takeNum), CallActivity.this);
+//                    urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
+//                        @Override
+//                        public void OnCompleted(String httpResult) {
+//                            waitNumberArrayList.clear();
+//                            reFresh();
+//                        }
+//                    });
+//
+//                    urlToolCallNum.execute();
+//                    takeEdt.setText("");
+//                }
+//
+//                break;
+//
+//            case R.id.button6: //依序叫號
+//                int conNumInt = Integer.valueOf(conNum_tv.getText().toString());
+//                String conNum;
+//
+//                if(conNumInt < 10) {
+//                    conNum = "0" + String.valueOf(conNumInt);
+//                } else {
+//                    conNum = String.valueOf(conNumInt);
+//                }
+//
+//                urlToolCallNum = new URLUtil(URLUtil.getUrlCallNumber(storeName, conNum), CallActivity.this);
+//                urlToolCallNum.setOnCompleted(new URLUtil.OnCompletedListener() {
+//                    @Override
+//                    public void OnCompleted(String httpResult) {
+//                        waitNumberArrayList.clear();
+//                        reFresh();
+//                    }
+//                });
+//
+//                urlToolCallNum.execute();
+//
+//                break;
+//        }
+//    }
 }
