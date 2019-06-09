@@ -98,7 +98,7 @@ public class PadActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                urlUtilLastWaitNum = new URLUtil(URLUtil.getUrlLastWaitNumber(storeName), PadActivity.this);
+                urlUtilLastWaitNum = new URLUtil(URLUtil.getUrlLastWaitNumber("store_info"), PadActivity.this);
                 urlUtilLastWaitNum.setOnCompleted(new URLUtil.OnCompletedListener() {
                     @Override
                     public void OnCompleted(String httpResult) {

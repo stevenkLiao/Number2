@@ -103,7 +103,7 @@ public class CallActivity extends AppCompatActivity {
                     tmpHttpResult = httpResult;
                     waitNumberArrayList.clear();
                 } else {
-                    handler.postDelayed(refreshRunnable, 2000);
+                    handler.postDelayed(refreshRunnable, 1000);
                     return;
                 }
 
@@ -140,7 +140,7 @@ public class CallActivity extends AppCompatActivity {
                     }
                 }
                 //當一次號碼要求結束後，隔2秒會再發一次做刷新，開始循環
-                handler.postDelayed(refreshRunnable, 2000);
+                handler.postDelayed(refreshRunnable, 1000);
             }
         });
 
