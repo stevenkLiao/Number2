@@ -51,9 +51,9 @@ public class PadActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     //取得等待號碼，加一後並顯示QR code

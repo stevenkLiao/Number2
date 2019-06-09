@@ -15,17 +15,6 @@ public class CommonData {
 
     public static final String QUERY_LAST_WAIT_NUM_API = "query_last_num.php";
 
-    public static final String QUERY_LAST_NUM_API = "query_last_num.php";
-
-    public static final String QUERY_DONE_NUM_API = "";
-
-    public static final String INSERT_NUM_API = "insertnum.php";
-
     public static final String INIT_API = "init.php";
-
-    public static final String STORE_TABLE_NAME = "store_info";
-
-    //設置全域最新號碼
-    public static int lastNum = 0;
 
 }

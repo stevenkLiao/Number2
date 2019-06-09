@@ -57,7 +57,6 @@ public class MainFlameActivity extends ParentActivity implements View.OnClickLis
                         @Override
                         public void OnCompleted(String httpResult) {
                             //重置完畢，將最新號碼歸零
-                            CommonData.lastNum = 0;
                             cancelLoading();
                         }
                     });

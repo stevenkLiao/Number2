@@ -6,13 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
 import com.example.user.Utils.DialogUtil;
 import com.example.user.Utils.URLUtil;
 import com.example.user.Adapter.WaitNumAdapter;
@@ -51,6 +44,13 @@ public class CallActivity extends AppCompatActivity {
 
         initRefreshRunnable();
         reFresh();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        handler.removeCallbacks(refreshRunnable);
+        finish();
     }
 
     private void processWaitNumber(int processRound, int processNumber, String[] oriWaitNumber) {
