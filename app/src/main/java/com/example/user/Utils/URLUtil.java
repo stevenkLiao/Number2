@@ -158,7 +158,8 @@ public class URLUtil extends AsyncTask<Void, Void, String> {
 
     static public String getUrlCallNumber(String storeName, String callnum) {
         return CommonData.SERVER_IP + "/" + CommonData.CALL_NUM_API +
-                "?" + "storename=" + storeName + "&" + "callnum=" + callnum;
+                "?" + "storeName=" + storeName + "&" + "callNum=" + callnum +
+                "&" + "tableName=" + CommonData.TABLE_NAME;
     }
 
     static public String getHttpResult(String httpResultOri) {

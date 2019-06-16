@@ -7,6 +7,7 @@ public class CommonData {
     public static final String LOG_IN_API = "login.php";
 
     public static final String REGISTER_API = "register.php";
+
     public static final String QUERY_STORE_NAME_API = "query_store_name.php";
 
     public static final String CALL_NUM_API = "callnum.php";
@@ -16,5 +17,7 @@ public class CommonData {
     public static final String QUERY_LAST_WAIT_NUM_API = "query_last_num.php";
 
     public static final String INIT_API = "init.php";
+
+    public static final String TABLE_NAME = "store_info";
 
 }
