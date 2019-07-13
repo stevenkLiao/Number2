@@ -148,12 +148,12 @@ public class URLUtil extends AsyncTask<Void, Void, String> {
 
     static public String getUrlWaitNumber(String storeName) {
         return CommonData.SERVER_IP + "/" + CommonData.QUERY_WAIT_NUM_API +
-                "?" + "store_name=" + storeName;
+                "?" + "storeName=" + storeName + "&" + "tableName=" + CommonData.TABLE_NAME;
     }
 
     static public String getUrlLastWaitNumber(String storeTableName) {
         return CommonData.SERVER_IP + "/" + CommonData.QUERY_LAST_WAIT_NUM_API +
-                "?" + "storeTableName=" + storeTableName;
+                "?" + "tableName=" + storeTableName;
     }
 
     static public String getUrlCallNumber(String storeName, String callnum) {
@@ -167,14 +167,9 @@ public class URLUtil extends AsyncTask<Void, Void, String> {
         return split_line[1];
     }
 
-    static public String[] getWaitNum(String httpResultOri) {
-        String[] split = httpResultOri.split(" +", 0);
-        return split;
-    }
-
     static public String getInitTable(String storetableName, String storeName) {
         return CommonData.SERVER_IP + "/" + CommonData.INIT_API +
-                "?" + "storeTableName=" + storetableName + "&" + "storeName=" + storeName;
+                "?" + "tableName=" + storetableName + "&" + "storeName=" + storeName;
     }
 
 }
