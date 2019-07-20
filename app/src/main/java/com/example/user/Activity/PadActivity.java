@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.user.CommonData.CommonData;
 import com.example.user.Utils.DialogUtil;
 import com.example.user.Utils.SocketUtil;
 import com.example.user.Utils.URLUtil;
@@ -19,11 +20,13 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.IOException;
 
+import static com.example.user.Utils.URLUtil.getTimeStamp;
+
 public class PadActivity extends AppCompatActivity {
 
     private ImageView ivCode;
     private String storeName;
-    private URLUtil urlUtilLastWaitNum;
+    private URLUtil urlUtilLastWaitNum, urlUtilTimeStamp;
     private Handler mHandler;
     private Runnable getLastWaitNumQueryRunnable;
 
@@ -35,7 +38,8 @@ public class PadActivity extends AppCompatActivity {
         ivCode = (ImageView) findViewById(R.id.imageView3);
         storeName = getIntent().getStringExtra("storeName");
 
-        getLastWaitNumQuery();
+        setLastWaitNumQueryRunnable();
+        getTimeStamp();
     }
 
     @Override
@@ -63,7 +67,8 @@ public class PadActivity extends AppCompatActivity {
         String waitNumPlus, qrCodeURL;
         if(strSplit[1].equals("no\n")) {
             waitNumPlus = "01";
-            qrCodeURL = "http://220.135.192.24/numbermachine2.html?storename=" + storeName + "&yournum=" + waitNumPlus;
+            qrCodeURL = "http://220.135.192.24/numbermachine2.html?storeTableNameStr=" + CommonData.TABLE_NAME + "&storename=" +
+                    storeName + "&yourNum=" + waitNumPlus + "&timeStamp=" + CommonData.TIME_STAMP;
 
         } else {
             String oriWaitNum = strSplit[1].replaceAll("\\n", "").replaceAll("\\r", "");
@@ -74,8 +79,9 @@ public class PadActivity extends AppCompatActivity {
             } else {
                 waitNumPlus = String.valueOf(waitNumPlusInt);
             }
-            qrCodeURL = "http://220.135.192.24/numbermachine2.html?storeTableNameStr=store_info&storename=" + storeName + "&yournum=" + waitNumPlus;
-            Log.d("liao", qrCodeURL);
+            qrCodeURL = "http://220.135.192.24/numbermachine2.html?storeTableNameStr=" + CommonData.TABLE_NAME + "&storename=" +
+                    storeName + "&yourNum=" + waitNumPlus + "&timeStamp=" + CommonData.TIME_STAMP;
+
         }
 
         BarcodeEncoder encoder = new BarcodeEncoder();
@@ -92,13 +98,18 @@ public class PadActivity extends AppCompatActivity {
 
     //定期發送等待號碼Query
     private void getLastWaitNumQuery() {
-
         mHandler = new Handler();
+        mHandler.post(getLastWaitNumQueryRunnable);
+
+    }
+
+    //設定等待號碼Runnable
+    private void setLastWaitNumQueryRunnable() {
         getLastWaitNumQueryRunnable = new Runnable() {
             @Override
             public void run() {
 
-                urlUtilLastWaitNum = new URLUtil(URLUtil.getUrlLastWaitNumber("store_info"), PadActivity.this);
+                urlUtilLastWaitNum = new URLUtil(URLUtil.getUrlLastWaitNumber(), PadActivity.this);
                 urlUtilLastWaitNum.setOnCompleted(new URLUtil.OnCompletedListener() {
                     @Override
                     public void OnCompleted(String httpResult) {
@@ -114,12 +125,20 @@ public class PadActivity extends AppCompatActivity {
 
             }
         };
-        mHandler.post(getLastWaitNumQueryRunnable);
-
     }
 
+    //取得TimeStamp
+    private void getTimeStamp() {
+        urlUtilTimeStamp = new URLUtil(URLUtil.getTimeStamp(storeName), PadActivity.this);
+        urlUtilTimeStamp.setOnCompleted(new URLUtil.OnCompletedListener() {
+            @Override
+            public void OnCompleted(String httpResult) {
+                CommonData.setTimeStamp(httpResult.trim().split("/")[1]);
+                getLastWaitNumQuery();
+            }
+        });
 
-
-
+        urlUtilTimeStamp.execute();
+    }
 
 }

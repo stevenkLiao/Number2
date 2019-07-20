@@ -18,6 +18,17 @@ public class CommonData {
 
     public static final String INIT_API = "init.php";
 
-    public static final String TABLE_NAME = "store_info";
+    public static final String QUERY_TIME_STAMP_API = "query_time_stamp.php";
 
+    public static final String TABLE_NAME = "test_info";
+
+    public static String TIME_STAMP;
+
+    public static String getTimeStamp() {
+        return TIME_STAMP;
+    }
+
+    public static void setTimeStamp(String timeStamp) {
+        TIME_STAMP = timeStamp;
+    }
 }

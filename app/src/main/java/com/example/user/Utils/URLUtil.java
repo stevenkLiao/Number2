@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * 電文相關使用class
@@ -151,9 +153,9 @@ public class URLUtil extends AsyncTask<Void, Void, String> {
                 "?" + "storeName=" + storeName + "&" + "tableName=" + CommonData.TABLE_NAME;
     }
 
-    static public String getUrlLastWaitNumber(String storeTableName) {
+    static public String getUrlLastWaitNumber() {
         return CommonData.SERVER_IP + "/" + CommonData.QUERY_LAST_WAIT_NUM_API +
-                "?" + "tableName=" + storeTableName;
+                "?" + "tableName=" + CommonData.TABLE_NAME;
     }
 
     static public String getUrlCallNumber(String storeName, String callnum) {
@@ -167,9 +169,21 @@ public class URLUtil extends AsyncTask<Void, Void, String> {
         return split_line[1];
     }
 
-    static public String getInitTable(String storetableName, String storeName) {
+    static public String getInitTable(String storeName, String timeStamp) {
         return CommonData.SERVER_IP + "/" + CommonData.INIT_API +
-                "?" + "tableName=" + storetableName + "&" + "storeName=" + storeName;
+                "?" + "tableName=" + CommonData.TABLE_NAME + "&" + "storeName=" + storeName +
+                "&" + "timeStamp=" + timeStamp;
+    }
+
+    static public String getTimeStamp(String storeName) {
+        return CommonData.SERVER_IP + "/" + CommonData.QUERY_TIME_STAMP_API +
+                "?" + "storeName=" + storeName;
+    }
+
+    static public String getTimeStamp() {
+        Calendar mCal = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddkkmmss");
+        return df.format(mCal.getTime());
     }
 
 }

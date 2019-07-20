@@ -15,6 +15,8 @@ import com.example.user.Utils.URLUtil;
 import com.example.user.framework.ParentActivity;
 import com.example.user.nummachine2.R;
 
+import static com.example.user.Utils.URLUtil.getTimeStamp;
+
 public class MainFlameActivity extends ParentActivity implements View.OnClickListener
 
 {
@@ -27,56 +29,11 @@ public class MainFlameActivity extends ParentActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_flame);
-        tvStoreName = (TextView) findViewById(R.id.textView14);
-
+        initView();
 
         //取得信箱，並透過信箱取得店名
         Intent intent = getIntent();
         strEmail = intent.getStringExtra("email");
-
-        final URLUtil urlTool;
-        urlTool = new URLUtil(URLUtil.getUrlForQueryName(strEmail), this);
-
-        urlTool.setOnCompleted(new URLUtil.OnCompletedListener() {
-            @Override
-            public void OnCompleted(String httpResult) {
-
-                cancelLoading();
-                String[] result = httpResult.split("/");
-
-                //判斷連線成功，且店名查詢後不為空字串
-                if(result[0].equals("200") && !result[0].equals("")) {
-
-                    //設置店名
-                    tvStoreName.setText(result[1]);
-                    storeName = result[1];
-
-                    //重置該店的table
-                    URLUtil urlToolForInit = new URLUtil(URLUtil.getInitTable("store_info", storeName), MainFlameActivity.this);
-                    urlToolForInit.setOnCompleted(new URLUtil.OnCompletedListener() {
-                        @Override
-                        public void OnCompleted(String httpResult) {
-                            //重置完畢，將最新號碼歸零
-                            cancelLoading();
-                        }
-                    });
-                    urlToolForInit.execute();
-                    showLoading();
-                } else {
-                    DialogUtil.showPostiveDialog(MainFlameActivity.this, getResources().getString(R.string.WrongPW), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                }
-
-            }
-        });
-
-        urlTool.execute();
-        showLoading();
-        initView();
 
         //設定touch觸發事件
         ll_call.setOnTouchListener(view_touch);
@@ -85,6 +42,10 @@ public class MainFlameActivity extends ParentActivity implements View.OnClickLis
         //設定click觸發事件
         ll_call.setOnClickListener(this);
         ll_board.setOnClickListener(this);
+
+        //取得店名並重置TABLE
+        sendStoreNameQuery();
+        showLoading();
     }
 
     //按鍵觸發
@@ -94,11 +55,8 @@ public class MainFlameActivity extends ParentActivity implements View.OnClickLis
         switch (id) {
 
             case R.id.ll_call:
-                //傳送店名給CallActivity
-                Intent intent = new Intent(MainFlameActivity.this, CallActivity.class);
-                intent.putExtra("storeName", storeName);
-                startActivity(intent);
-
+                showLoading();
+                sendInitQuery();
                 break;
 
             case R.id.ll_board:
@@ -132,4 +90,63 @@ public class MainFlameActivity extends ParentActivity implements View.OnClickLis
             return false;
         }
     };
+
+    //發送店名電文
+    private void sendStoreNameQuery() {
+        final URLUtil urlToolStoreName;
+        urlToolStoreName = new URLUtil(URLUtil.getUrlForQueryName(strEmail), this);
+        urlToolStoreName.setOnCompleted(new URLUtil.OnCompletedListener() {
+            @Override
+            public void OnCompleted(String httpResult) {
+                cancelLoading();
+                String[] result = httpResult.split("/");
+
+                //判斷連線成功，且店名查詢後不為空字串
+                if(result[0].equals("200") && !result[0].equals("")) {
+
+                    //設置店名
+                    tvStoreName.setText(result[1].trim());
+                    storeName = result[1];
+
+                } else {
+                    DialogUtil.showPostiveDialog(MainFlameActivity.this, getResources().getString(R.string.WrongPW), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+
+            }
+        });
+
+        urlToolStoreName.execute();
+    }
+
+
+
+    //發送重置電文
+    private void sendInitQuery() {
+        //重置該店的table
+        //建置 Time_Stamp
+        String timeStamp = getTimeStamp();
+        CommonData.setTimeStamp(timeStamp);
+
+        //發送重置電文
+        URLUtil urlToolForInit = new URLUtil(URLUtil.getInitTable(storeName, timeStamp), MainFlameActivity.this);
+        urlToolForInit.setOnCompleted(new URLUtil.OnCompletedListener() {
+            @Override
+            public void OnCompleted(String httpResult) {
+                //重置完畢，將最新號碼歸零
+                cancelLoading();
+
+                //傳送店名給CallActivity
+                Intent intent = new Intent(MainFlameActivity.this, CallActivity.class);
+                intent.putExtra("storeName", storeName);
+                startActivity(intent);
+            }
+        });
+
+        urlToolForInit.execute();
+    }
 }
