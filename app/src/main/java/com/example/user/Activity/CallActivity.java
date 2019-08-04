@@ -42,6 +42,7 @@ public class CallActivity extends AppCompatActivity {
         initWaitAdapter();
         waitNumRcv.setAdapter(waitNumAdapter);
 
+        //初始化Runnable
         initRefreshRunnable();
         reFresh();
     }

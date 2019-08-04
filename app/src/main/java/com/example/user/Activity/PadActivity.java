@@ -29,6 +29,7 @@ public class PadActivity extends AppCompatActivity {
     private URLUtil urlUtilLastWaitNum, urlUtilTimeStamp;
     private Handler mHandler;
     private Runnable getLastWaitNumQueryRunnable;
+    private boolean isFirstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,9 @@ public class PadActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mHandler.post(getLastWaitNumQueryRunnable);
+        if(!isFirstTime) {
+            mHandler.post(getLastWaitNumQueryRunnable);
+        }
     }
 
     @Override
@@ -98,7 +101,10 @@ public class PadActivity extends AppCompatActivity {
 
     //定期發送等待號碼Query
     private void getLastWaitNumQuery() {
-        mHandler = new Handler();
+        if(isFirstTime) {
+            mHandler = new Handler();
+            isFirstTime = false;
+        }
         mHandler.post(getLastWaitNumQueryRunnable);
 
     }
