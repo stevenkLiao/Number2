@@ -99,7 +99,7 @@ public class CallActivity extends AppCompatActivity {
         urlToolgetNum.setOnCompleted(new URLUtil.OnCompletedListener() {
             @Override
             public void OnCompleted(String httpResult) {
-                //得到的http要在跟之前的結果比較，不一樣才會更新
+                //得到的http要再跟之前的結果比較，不一樣才會更新
                 if(!tmpHttpResult.equals(httpResult)) {
                     tmpHttpResult = httpResult;
                     waitNumberArrayList.clear();
