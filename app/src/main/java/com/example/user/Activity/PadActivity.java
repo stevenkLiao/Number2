@@ -79,7 +79,7 @@ public class PadActivity extends AppCompatActivity {
             waitNumPlus = String.valueOf(waitNumPlusInt);
         }
 
-        qrCodeURL = "http://220.135.192.24/numbermachine2.html?storeTableNameStr=" + CommonData.TABLE_NAME + "&storename=" +
+        qrCodeURL = CommonData.SERVER_IP + "/numbermachine2.html?storeTableNameStr=" + CommonData.TABLE_NAME + "&storename=" +
                 storeName + "&yourNum=" + waitNumPlus + "&timeStamp=" + CommonData.TIME_STAMP;
 
         //製作Barcode並顯示

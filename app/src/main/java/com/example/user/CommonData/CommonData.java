@@ -20,7 +20,7 @@ public class CommonData {
 
     public static final String QUERY_TIME_STAMP_API = "query_time_stamp.php";
 
-    public static final String TABLE_NAME = "test_info";
+    public static final String TABLE_NAME = "liao_store";
 
     public static String TIME_STAMP;
 
