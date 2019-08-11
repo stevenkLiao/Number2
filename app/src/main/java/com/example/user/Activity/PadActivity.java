@@ -66,30 +66,25 @@ public class PadActivity extends AppCompatActivity {
     //取得等待號碼，加一後並顯示QR code
     private void setLastWaitNumToQRcode(String returnMsg) {
 
+        //回傳200/00 01 02....要先做切割
         String[] strSplit = returnMsg.split("/");
+
         String waitNumPlus, qrCodeURL;
-        if(strSplit[1].equals("no\n")) {
-            waitNumPlus = "01";
-            qrCodeURL = "http://220.135.192.24/numbermachine2.html?storeTableNameStr=" + CommonData.TABLE_NAME + "&storename=" +
-                    storeName + "&yourNum=" + waitNumPlus + "&timeStamp=" + CommonData.TIME_STAMP;
-
+        String oriWaitNum = strSplit[1].replaceAll("\\n", "").replaceAll("\\r", "");
+        int waitNumPlusInt = Integer.valueOf(oriWaitNum) + 1;
+        //組合等待號碼String
+        if(waitNumPlusInt < 10) {
+            waitNumPlus = "0" + String.valueOf(waitNumPlusInt);
         } else {
-            String oriWaitNum = strSplit[1].replaceAll("\\n", "").replaceAll("\\r", "");
-            int waitNumPlusInt = Integer.valueOf(oriWaitNum) + 1;
-            //組合等待號碼String
-            if(waitNumPlusInt < 10) {
-                waitNumPlus = "0" + String.valueOf(waitNumPlusInt);
-            } else {
-                waitNumPlus = String.valueOf(waitNumPlusInt);
-            }
-            qrCodeURL = "http://220.135.192.24/numbermachine2.html?storeTableNameStr=" + CommonData.TABLE_NAME + "&storename=" +
-                    storeName + "&yourNum=" + waitNumPlus + "&timeStamp=" + CommonData.TIME_STAMP;
-
+            waitNumPlus = String.valueOf(waitNumPlusInt);
         }
 
+        qrCodeURL = "http://220.135.192.24/numbermachine2.html?storeTableNameStr=" + CommonData.TABLE_NAME + "&storename=" +
+                storeName + "&yourNum=" + waitNumPlus + "&timeStamp=" + CommonData.TIME_STAMP;
+
+        //製作Barcode並顯示
         BarcodeEncoder encoder = new BarcodeEncoder();
         try {
-
             Bitmap bit = encoder.encodeBitmap(qrCodeURL, BarcodeFormat.QR_CODE, 250, 250);
             ivCode.setImageBitmap(bit);
 
